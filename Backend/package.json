@@ -4,7 +4,10 @@
   "description": "Kertupertu Back end",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon src/app.js --exec"
+    "start": "nodemon src/app.js --exec",
+    "server-dev": "nodemon src/app.js",
+    "client-dev": "npm start --prefix ../client",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run client-dev\""
   },
   "author": "Silver, Kairit, Jorgen",
   "license": "ISC",
@@ -14,5 +17,8 @@
     "express": "^4.16.3",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.4"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
   }
 }
