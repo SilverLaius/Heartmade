@@ -28,7 +28,6 @@ class ProductSearch extends Component {
   }
 
   handleInputChange = event => {
-    console.log(event.target.value);
     this.setState({
       search: event.target.value
     });

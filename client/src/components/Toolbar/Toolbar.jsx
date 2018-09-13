@@ -13,7 +13,7 @@ const toolbar = () => (
               <Link to="/products">Products</Link>
             </li>
             <li>
-              <Link to="/">Link</Link>
+              <Link to="/upload">Upload Product</Link>
             </li>
             <li>
               <Link to="/">Link</Link>

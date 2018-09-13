@@ -37,6 +37,16 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.post("/upload", (req, res) => {
+  const formData = req.body;
+  const postQuery = `INSERT INTO test (productname, product_description, image_src) values ('${
+    formData.productName
+  }', '${formData.productDescription}', '${formData.productImageSrc}');`;
+  connection.query(postQuery, (err, results) => {
+    if (err) throw err;
+  });
+});
+
 app.listen(3001, () => {
   console.log("Listening on port 3001");
 });
