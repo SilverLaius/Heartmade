@@ -2,12 +2,38 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mySql = require("mysql");
+const multer = require("multer");
+const path = require("path");
+const crypto = require("crypto");
+const mime = require("mime");
 const app = express();
 const config = require("../config/config");
 const SELECT_ALL_QUERY = "SELECT * FROM test";
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+// configuring multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (file.mimetype === "image/png") {
+      cb(null, path.join(__dirname, "/uploads"));
+    }
+  },
+  filename: (req, file, cb) => {
+    crypto.pseudoRandomBytes(16, function(err, raw) {
+      cb(
+        null,
+        raw.toString("hex") +
+          Date.now() +
+          "." +
+          mime.getExtension(file.mimetype)
+      );
+    });
+  }
+});
+const upload = multer({ storage });
 
 const connection = mySql.createConnection({
   host: config.database.host,
@@ -37,15 +63,35 @@ app.get("/products", (req, res) => {
   });
 });
 
-app.post("/upload", (req, res) => {
-  const formData = req.body;
-  const postQuery = `INSERT INTO test (productname, product_description, image_src) values ('${
-    formData.productName
-  }', '${formData.productDescription}', '${formData.productImageSrc}');`;
-  connection.query(postQuery, (err, results) => {
-    if (err) throw err;
-  });
-});
+app.post(
+  "/upload",
+  upload.fields([
+    {
+      name: "productName",
+      maxCount: 1
+    },
+    {
+      name: "productDescription",
+      maxCount: 1
+    },
+    {
+      name: "productImage",
+      maxCount: 1
+    }
+  ]),
+  (req, res, next) => {
+    const productImageSrc =
+      req.files["productImage"][0].filename +
+      mime.getExtension(req.files["productImage"][0].mimetype);
+    const productName = req.body.productName;
+    const productDescription = req.body.productDescription;
+
+    const postQuery = `INSERT INTO test (productname, product_description, image_src) values ('${productName}', '${productDescription}', '${productImageSrc}');`;
+    connection.query(postQuery, (err, results) => {
+      if (err) throw err;
+    });
+  }
+);
 
 app.listen(3001, () => {
   console.log("Listening on port 3001");

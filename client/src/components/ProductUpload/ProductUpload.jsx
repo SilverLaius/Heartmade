@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 /**
  * https://academind.com/learn/react/snippets/image-upload/
@@ -22,24 +23,17 @@ class ProductUpload extends Component {
 
   handleFileChange = event => {
     this.setState({
-      productImage: event.target.files[0],
-      productImageSrc: event.target.files[0].name
+      productImage: event.target.files[0]
     });
   };
 
   handleUploadProduct = event => {
     event.preventDefault();
-    fetch("/upload", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        productName: this.state.productName,
-        productDescription: this.state.productDescription,
-        productImageSrc: this.state.productImageSrc
-      })
-    }).then(() => this.resetState());
+    const formData = new FormData();
+    formData.append("productName", this.state.productName);
+    formData.append("productDescription", this.state.productDescription);
+    formData.append("productImage", this.state.productImage);
+    axios.post("/upload", formData);
   };
 
   resetState = () => {
