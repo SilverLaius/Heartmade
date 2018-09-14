@@ -5,6 +5,7 @@ const mySql = require("mysql");
 const app = express();
 const config = require("../config/config");
 const SELECT_ALL_QUERY = "SELECT * FROM test";
+const COUNT_ALL_ROWS = "SELECT COUNT(*) FROM kasutajad";
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -21,6 +22,8 @@ connection.connect(err => {
   console.log("Connected!");
 });
 
+console.log(connection);
+
 app.get("/", (req, res) => {
   res.send("go to /products to see products list");
 });
@@ -34,16 +37,6 @@ app.get("/products", (req, res) => {
         data: results
       });
     }
-  });
-});
-
-app.post("/upload", (req, res) => {
-  const formData = req.body;
-  const postQuery = `INSERT INTO test (productname, product_description, image_src) values ('${
-    formData.productName
-  }', '${formData.productDescription}', '${formData.productImageSrc}');`;
-  connection.query(postQuery, (err, results) => {
-    if (err) throw err;
   });
 });
 
