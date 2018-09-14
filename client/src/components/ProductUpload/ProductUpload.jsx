@@ -11,8 +11,7 @@ class ProductUpload extends Component {
     this.state = {
       productName: "",
       productDescription: "",
-      productImage: null,
-      progress: 0
+      productImage: null
     };
     this.baseState = this.state;
   }
@@ -27,12 +26,14 @@ class ProductUpload extends Component {
     });
   };
 
+  resetFileInput = event => {};
+
   handleUploadProduct = event => {
-    event.preventDefault();
     const formData = new FormData();
     formData.append("productName", this.state.productName);
     formData.append("productDescription", this.state.productDescription);
     formData.append("productImage", this.state.productImage);
+
     axios.post("/upload", formData, {
       onUploadProgress: progressEvent => {
         while (progressEvent.loaded !== progressEvent.total) {
@@ -55,6 +56,7 @@ class ProductUpload extends Component {
           <label>
             Product Name:
             <input
+              value={this.state.productName}
               name="productName"
               type="text"
               onChange={this.handleInputChange}
@@ -63,6 +65,7 @@ class ProductUpload extends Component {
           <label>
             Product Description:
             <input
+              value={this.state.productDescription}
               name="productDescription"
               type="text"
               onChange={this.handleInputChange}
