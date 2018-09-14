@@ -11,8 +11,8 @@ class ProductUpload extends Component {
     this.state = {
       productName: "",
       productDescription: "",
-      productImageSrc: "",
-      productImage: null
+      productImage: null,
+      progress: 0
     };
     this.baseState = this.state;
   }
@@ -33,7 +33,15 @@ class ProductUpload extends Component {
     formData.append("productName", this.state.productName);
     formData.append("productDescription", this.state.productDescription);
     formData.append("productImage", this.state.productImage);
-    axios.post("/upload", formData);
+    axios.post("/upload", formData, {
+      onUploadProgress: progressEvent => {
+        while (progressEvent.loaded !== progressEvent.total) {
+          this.setState({
+            progress: progressEvent.loaded / progressEvent.total
+          });
+        }
+      }
+    });
   };
 
   resetState = () => {

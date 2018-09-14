@@ -7,8 +7,8 @@ class Card extends Component {
     productDescription: this.props.productDescription,
     productImg: this.props.productImg
   };
+
   render() {
-    console.log();
     return (
       <div className="product-card">
         <ul className="product-card__list">
@@ -16,7 +16,7 @@ class Card extends Component {
           <li>{this.state.productDescription}</li>
           <img
             className="product-card__image"
-            src={"img/" + this.state.productImg}
+            src={"/image/" + this.state.productImg}
             alt="img"
           />
         </ul>

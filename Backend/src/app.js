@@ -18,7 +18,7 @@ app.use(cors());
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype === "image/png") {
-      cb(null, path.join(__dirname, "/uploads"));
+      cb(null, path.join(__dirname, "../public/img"));
     }
   },
   filename: (req, file, cb) => {
@@ -63,6 +63,10 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.get("/image/:id", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/img/", req.params.id));
+});
+
 app.post(
   "/upload",
   upload.fields([
@@ -80,9 +84,7 @@ app.post(
     }
   ]),
   (req, res, next) => {
-    const productImageSrc =
-      req.files["productImage"][0].filename +
-      mime.getExtension(req.files["productImage"][0].mimetype);
+    const productImageSrc = req.files["productImage"][0].filename;
     const productName = req.body.productName;
     const productDescription = req.body.productDescription;
 
