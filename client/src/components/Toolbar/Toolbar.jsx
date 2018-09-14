@@ -16,7 +16,7 @@ const toolbar = () => (
               <Link to="/upload">Upload Product</Link>
             </li>
             <li>
-              <Link to="/">Link</Link>
+              <Link to="/map">Location</Link>
             </li>
             <li>
               <Link to="/">Link</Link>
