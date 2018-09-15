@@ -13,7 +13,7 @@ const SELECT_ALL_QUERY = "SELECT * FROM Kasutajad";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.static(`${__dirname}/../../client/build`));
+//app.use(express.static(`${__dirname}/../../client/build`));
 
 // configuring multer
 const storage = multer.diskStorage({
@@ -99,9 +99,9 @@ app.post(
   }
 );
 
-app.get("*", (req, res) => {
+/*app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../client/build/index.html"));
-});
+});*/
 
 app.listen(3001, () => {
   console.log("Listening on port 3001");
