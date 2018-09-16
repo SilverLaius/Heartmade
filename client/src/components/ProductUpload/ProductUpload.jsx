@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ReactTooltip from "react-tooltip";
 
 /**
  * https://academind.com/learn/react/snippets/image-upload/
@@ -93,12 +94,15 @@ class ProductUpload extends Component {
           </label>
           <label>
             Product Image:
-            <input
-              name="productImage"
-              type="file"
-              onChange={this.handleFileChange}
-              multiple
-            />
+            <div data-tip="hello world">
+              <input
+                name="productImage"
+                type="file"
+                onChange={this.handleFileChange}
+                multiple
+              />
+              <ReactTooltip place="top" type="dark" effect="float" />
+            </div>
           </label>
           <label>
             Product Type:

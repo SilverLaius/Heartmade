@@ -68,6 +68,7 @@ app.get("/image/:id", (req, res) => {
 
 app.post("/upload/:productID", upload.any(), (req, res) => {
   const productID = req.params.productID;
+  console.log(productID);
   for (let i = 0; i < req.files.length; i++) {
     const productImageSrc = req.files[i].filename;
     connection.query(
