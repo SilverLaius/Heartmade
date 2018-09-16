@@ -10,10 +10,12 @@ class ProductUpload extends Component {
     super();
     this.state = {
       productName: "",
-      productDescription: "",
+      productPrice: 0,
+      productDateAdded: null,
+      productType: 1,
+      productStatus: 1,
       productImage: null
     };
-    this.baseState = this.state;
   }
 
   handleInputChange = event => {
@@ -21,28 +23,35 @@ class ProductUpload extends Component {
   };
 
   handleFileChange = event => {
+    /* let allImages = [];
+    for (let i = 0; i < event.target.files.length; i++) {
+      allImages.push(event.target.files[i]);
+    }
+    this.setState({
+      productImages: allImages
+    }); */
     this.setState({
       productImage: event.target.files[0]
     });
   };
 
-  resetFileInput = event => {};
-
   handleUploadProduct = event => {
+    // https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+    const currentDate = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+    this.setState({
+      productDateAdded: currentDate
+    });
     const formData = new FormData();
     formData.append("productName", this.state.productName);
-    formData.append("productDescription", this.state.productDescription);
+    formData.append("productPrice", this.state.productPrice);
+    formData.append("productDateAdded", this.state.productDateAdded);
+    formData.append("productType", this.state.productType);
+    formData.append("productStatus", this.state.productStatus);
     formData.append("productImage", this.state.productImage);
-
-    axios.post("/upload", formData, {
-      onUploadProgress: progressEvent => {
-        while (progressEvent.loaded !== progressEvent.total) {
-          this.setState({
-            progress: progressEvent.loaded / progressEvent.total
-          });
-        }
-      }
-    });
+    axios.post("/upload", formData);
   };
 
   resetState = () => {
@@ -63,10 +72,10 @@ class ProductUpload extends Component {
             />
           </label>
           <label>
-            Product Description:
+            Product Price:
             <input
-              value={this.state.productDescription}
-              name="productDescription"
+              value={this.state.productPrice}
+              name="productPrice"
               type="text"
               onChange={this.handleInputChange}
             />
@@ -79,6 +88,21 @@ class ProductUpload extends Component {
               onChange={this.handleFileChange}
             />
           </label>
+          <label>
+            Product Type:
+            <select name="productType" onChange={this.handleInputChange}>
+              <option>1</option>
+              <option>2</option>
+            </select>
+          </label>
+          <label>
+            Product Status:
+            <select name="productStatus" onChange={this.handleInputChange}>
+              <option>1</option>
+              <option>2</option>
+            </select>
+          </label>
+
           <button>Submit!</button>
         </form>
       </div>

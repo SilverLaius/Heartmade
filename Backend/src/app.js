@@ -53,23 +53,20 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  /*connection.query(SELECT_ALL_QUERY, (err, results) => {
-    if (err) {
-      return res.send(err);
-    } else {
-      return res.json({
-        data: results
-      });
-    }
-  }); */
-  return res.json({
-    data: {}
+  const productsQuery =
+    "SELECT * FROM Tooted JOIN Toodete_pildid ON Tooted.Tootekood = Toodete_pildid.Tootekood;";
+
+  connection.query(productsQuery, (err, results) => {
+    if (err) throw err;
+    res.send(results);
   });
 });
 
 app.get("/image/:id", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/img/", req.params.id));
 });
+
+//app.post("/upload/:productID", upload.any(), (req, res) => {});
 
 app.post(
   "/upload",
@@ -79,7 +76,19 @@ app.post(
       maxCount: 1
     },
     {
-      name: "productDescription",
+      name: "productPrice",
+      maxCount: 1
+    },
+    {
+      name: "productDateAdded",
+      maxCount: 1
+    },
+    {
+      name: "productType",
+      maxCount: 1
+    },
+    {
+      name: "productStatus",
       maxCount: 1
     },
     {
@@ -88,13 +97,24 @@ app.post(
     }
   ]),
   (req, res, next) => {
-    const productImageSrc = req.files["productImage"][0].filename;
+    const productPrice = req.body.productPrice;
     const productName = req.body.productName;
-    const productDescription = req.body.productDescription;
+    const productDateAdded = req.body.productDateAdded;
+    const productType = req.body.productType;
+    const productStatus = req.body.productStatus;
+    const productImageSrc = req.files["productImage"][0].filename;
 
-    const postQuery = `INSERT INTO test (productname, product_description, image_src) values ('${productName}', '${productDescription}', '${productImageSrc}');`;
+    const postQuery = `INSERT INTO Tooted (Hind, Kirjeldus, Lisamisaeg, LiikID, StaatusID) values ('${productPrice}', '${productName}', '${productDateAdded}', '${productType}', '${productStatus}');`;
     connection.query(postQuery, (err, results) => {
       if (err) throw err;
+      connection.query(
+        `INSERT INTO Toodete_pildid (Nimetus, Tootekood) values ('${productImageSrc}', '${
+          results.insertId
+        }');`,
+        (imgErr, imgResults) => {
+          if (imgErr) throw imgErr;
+        }
+      );
     });
   }
 );

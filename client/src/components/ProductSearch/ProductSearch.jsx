@@ -10,6 +10,7 @@ class ProductSearch extends Component {
   constructor() {
     super();
     this.state = {
+      prods: [],
       search: "",
       products: [],
       filteredProducts: []
@@ -20,12 +21,39 @@ class ProductSearch extends Component {
     fetch("/products")
       .then(res => res.json())
       .then(res => {
-        this.setState({
-          products: res["data"],
-          filteredProducts: res["data"]
-        });
+        this.setState(
+          {
+            prods: res
+          },
+          () => {
+            this.linkProductsToImages();
+          }
+        );
       });
   }
+  linkProductsToImages = () => {
+    let prods = this.state.prods;
+    console.log(prods);
+    let productsWithImages = new Map();
+    for (let i = 0; i < prods.length; i++) {
+      if (productsWithImages.has(prods[i].Tootekood)) {
+        productsWithImages.get(prods[i].Tootekood).push(prods[i].Nimetus);
+        prods.splice(i, 1);
+      } else {
+        let images = [];
+        images.push(prods[i].Nimetus);
+        productsWithImages.set(prods[i].Tootekood, images);
+      }
+    }
+
+    for (let i = 0; i < prods.length; i++) {
+      prods[i].Pildid = productsWithImages.get(prods[i].Tootekood);
+    }
+    this.setState({
+      products: prods,
+      filteredProducts: prods
+    });
+  };
 
   handleInputChange = event => {
     this.setState({
@@ -35,7 +63,7 @@ class ProductSearch extends Component {
 
   render() {
     let filteredProducts = this.state.products.filter(
-      product => product.productname.indexOf(this.state.search) !== -1
+      product => product.Kirjeldus.indexOf(this.state.search) !== -1
     );
     return (
       <div>
@@ -50,12 +78,12 @@ class ProductSearch extends Component {
         <div>
           <ul className="product-list">
             {filteredProducts.map(product => (
-              <li key={product.id}>
+              <li key={product.Tootekood}>
                 <Card
-                  key={product.id}
-                  productName={product.productname}
-                  productDescription={product.product_description}
-                  productImg={product.image_src}
+                  key={product.Tootekood}
+                  productName={product.Kirjeldus}
+                  productPrice={product.Hind}
+                  productImages={product.Pildid}
                 />
               </li>
             ))}
