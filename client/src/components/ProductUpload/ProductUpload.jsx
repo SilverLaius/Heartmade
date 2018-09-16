@@ -9,12 +9,13 @@ class ProductUpload extends Component {
   constructor() {
     super();
     this.state = {
+      productID: null,
       productName: "",
       productPrice: 0,
       productDateAdded: null,
       productType: 1,
       productStatus: 1,
-      productImage: null
+      productImages: []
     };
   }
 
@@ -23,15 +24,12 @@ class ProductUpload extends Component {
   };
 
   handleFileChange = event => {
-    /* let allImages = [];
+    let allImages = [];
     for (let i = 0; i < event.target.files.length; i++) {
       allImages.push(event.target.files[i]);
     }
     this.setState({
       productImages: allImages
-    }); */
-    this.setState({
-      productImage: event.target.files[0]
     });
   };
 
@@ -41,21 +39,34 @@ class ProductUpload extends Component {
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
-    this.setState({
-      productDateAdded: currentDate
-    });
-    const formData = new FormData();
-    formData.append("productName", this.state.productName);
-    formData.append("productPrice", this.state.productPrice);
-    formData.append("productDateAdded", this.state.productDateAdded);
-    formData.append("productType", this.state.productType);
-    formData.append("productStatus", this.state.productStatus);
-    formData.append("productImage", this.state.productImage);
-    axios.post("/upload", formData);
-  };
+    const date = new Date();
+    const time = date.getTime();
+    const generatedID = time & 0xffffffff;
+    console.log(generatedID);
 
-  resetState = () => {
-    this.setState(this.baseState);
+    console.log("hey");
+    this.setState(
+      {
+        productDateAdded: currentDate,
+        productID: -generatedID
+      },
+      () => {
+        const formData = new FormData();
+        formData.append("productID", this.state.productID);
+        formData.append("productName", this.state.productName);
+        formData.append("productPrice", this.state.productPrice);
+        formData.append("productDateAdded", this.state.productDateAdded);
+        formData.append("productType", this.state.productType);
+        formData.append("productStatus", this.state.productStatus);
+        formData.append("productImage", this.state.productImage);
+        axios.post("/upload", formData);
+        const imageData = new FormData();
+        for (let i = 0; i < this.state.productImages.length; i++) {
+          imageData.append("productImage", this.state.productImages[i]);
+        }
+        axios.post("/upload/" + this.state.productID, imageData);
+      }
+    );
   };
 
   render() {
@@ -86,6 +97,7 @@ class ProductUpload extends Component {
               name="productImage"
               type="file"
               onChange={this.handleFileChange}
+              multiple
             />
           </label>
           <label>

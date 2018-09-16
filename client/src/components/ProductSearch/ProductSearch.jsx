@@ -33,7 +33,6 @@ class ProductSearch extends Component {
   }
   linkProductsToImages = () => {
     let prods = this.state.prods;
-    console.log(prods);
     let productsWithImages = new Map();
     for (let i = 0; i < prods.length; i++) {
       if (productsWithImages.has(prods[i].Tootekood)) {

@@ -66,11 +66,26 @@ app.get("/image/:id", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/img/", req.params.id));
 });
 
-//app.post("/upload/:productID", upload.any(), (req, res) => {});
+app.post("/upload/:productID", upload.any(), (req, res) => {
+  const productID = req.params.productID;
+  for (let i = 0; i < req.files.length; i++) {
+    const productImageSrc = req.files[i].filename;
+    connection.query(
+      `INSERT INTO Toodete_pildid (Nimetus, Tootekood) values ('${productImageSrc}', '${productID}');`,
+      (err, results) => {
+        if (err) throw err;
+      }
+    );
+  }
+});
 
 app.post(
   "/upload",
   upload.fields([
+    {
+      name: "productID",
+      maxCount: 1
+    },
     {
       name: "productName",
       maxCount: 1
@@ -90,31 +105,19 @@ app.post(
     {
       name: "productStatus",
       maxCount: 1
-    },
-    {
-      name: "productImage",
-      maxCount: 1
     }
   ]),
   (req, res, next) => {
+    const productID = req.body.productID;
     const productPrice = req.body.productPrice;
     const productName = req.body.productName;
     const productDateAdded = req.body.productDateAdded;
     const productType = req.body.productType;
     const productStatus = req.body.productStatus;
-    const productImageSrc = req.files["productImage"][0].filename;
 
-    const postQuery = `INSERT INTO Tooted (Hind, Kirjeldus, Lisamisaeg, LiikID, StaatusID) values ('${productPrice}', '${productName}', '${productDateAdded}', '${productType}', '${productStatus}');`;
+    const postQuery = `INSERT INTO Tooted (Tootekood, Hind, Kirjeldus, Lisamisaeg, LiikID, StaatusID) values ('${productID}' ,'${productPrice}', '${productName}', '${productDateAdded}', '${productType}', '${productStatus}');`;
     connection.query(postQuery, (err, results) => {
       if (err) throw err;
-      connection.query(
-        `INSERT INTO Toodete_pildid (Nimetus, Tootekood) values ('${productImageSrc}', '${
-          results.insertId
-        }');`,
-        (imgErr, imgResults) => {
-          if (imgErr) throw imgErr;
-        }
-      );
     });
   }
 );
