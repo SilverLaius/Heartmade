@@ -1,17 +1,53 @@
 import React, { Component } from "react";
+import mapboxgl from "mapbox-gl";
+import "./BingMap.css";
+
+mapboxgl.accessToken =
+  "pk.eyJ1Ijoiam9yZ2VuNSIsImEiOiJjam02OHNuNmcxajBrM3JvMjB6Zm8weGY2In0.oU03KiSXf49PNaeVFXIEAA";
 
 class BingMap extends Component {
+  constructor() {
+    super();
+    this.state = {
+      geojson: {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [26.71451, 58.3783]
+            },
+            properties: {
+              title: "Mapbox",
+              description: "Washington, D.C."
+            }
+          }
+        ]
+      }
+    };
+  }
+
+  componentDidMount() {
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v9",
+      center: [26.7147, 58.3783],
+      zoom: 17
+    });
+    this.state.geojson.features.forEach(marker => {
+      new mapboxgl.Marker(this.mapMarker)
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+    });
+  }
+
+  mapMarker = () => <div className="marker" />;
+
   render() {
     return (
-      <div>
-        <iframe
-          title="map"
-          width="500"
-          height="400"
-          frameborder="0"
-          src="https://www.bing.com/maps/embed?h=400&w=500&cp=58.37839283136799~26.71461600126922&lvl=18&typ=d&sty=r&src=SHELL&FORM=MBEDV8"
-          scrolling="no"
-        />
+      <div className="mapContainer">
+        <div id="map" />
       </div>
     );
   }
