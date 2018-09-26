@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
 import socket from "../../SocketManager";
+import "./ProductUpload.css";
+import NotificationBox from "../NotificationBox/NotificationBox";
 
 /**
  * https://academind.com/learn/react/snippets/image-upload/
@@ -17,9 +19,9 @@ class ProductUpload extends Component {
       productDateAdded: null,
       productType: 1,
       productStatus: 1,
-      productImages: []
+      productImages: [],
+      uploadingStatus: "notUploaded"
     };
-    this.baseState = this.state;
   }
 
   handleInputChange = event => {
@@ -68,23 +70,35 @@ class ProductUpload extends Component {
           data: formData,
           config: { headers: { "Content-Type": "multipart/form-data" } }
         }).then(() => {
-          console.log(this.state.productID);
+          this.setState({
+            uploadingStatus: "uploaded"
+          });
           socket.emit("NEW_PRODUCT_UPLOADED", {
             productID: this.state.productID
           });
         });
       }
     );
+
     document.getElementById("upload-form").reset();
   };
 
-  resetState = () => {
-    this.setState(this.baseState);
+  handleChangeUploadStatus = () => {
+    const newStatus =
+      this.state.uploadingStatus === "notUploaded" ? "uploaded" : "notUploaded";
+    this.setState({
+      uploadingStatus: newStatus
+    });
   };
 
   render() {
     return (
       <div>
+        <NotificationBox
+          text="Product uploaded!"
+          uploadingStatus={this.state.uploadingStatus}
+          buttonClick={this.handleChangeUploadStatus}
+        />
         <form id="upload-form" onSubmit={this.handleUploadProduct}>
           <label>
             Product Name:
