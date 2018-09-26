@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import "./BingMap.css";
 
+// https://www.mapbox.com/help/custom-markers-gl-js/
 mapboxgl.accessToken =
   "pk.eyJ1Ijoiam9yZ2VuNSIsImEiOiJjam02OHNuNmcxajBrM3JvMjB6Zm8weGY2In0.oU03KiSXf49PNaeVFXIEAA";
 

@@ -1,7 +1,7 @@
 .product-card {
-  height: 300px;
-  width: 300px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 35em;
+  width: 35em;
+  box-shadow: 0 0.4em 0.2em 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
 
@@ -10,6 +10,6 @@
 }
 
 .product-card__image {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 75%;
+  max-height: 75%;
 }
