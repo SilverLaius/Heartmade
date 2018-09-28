@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import ReactTooltip from "react-tooltip";
+import socket from "../../SocketManager";
+import "./ProductUpload.css";
+import NotificationBox from "../NotificationBox/NotificationBox";
 
 /**
  * https://academind.com/learn/react/snippets/image-upload/
@@ -16,7 +19,8 @@ class ProductUpload extends Component {
       productDateAdded: null,
       productType: 1,
       productStatus: 1,
-      productImages: []
+      productImages: [],
+      uploadingStatus: "notUploaded"
     };
   }
 
@@ -29,12 +33,11 @@ class ProductUpload extends Component {
     for (let i = 0; i < event.target.files.length; i++) {
       allImages.push(event.target.files[i]);
     }
-    this.setState({
-      productImages: allImages
-    });
+    this.setState({ productImages: allImages });
   };
 
   handleUploadProduct = event => {
+    event.preventDefault();
     // https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
     const currentDate = new Date()
       .toISOString()
@@ -43,41 +46,63 @@ class ProductUpload extends Component {
     const date = new Date();
     const time = date.getTime();
     const generatedID = time & 0xffffffff;
-    console.log(generatedID);
+    const formData = new FormData();
 
-    console.log("hey");
     this.setState(
       {
         productDateAdded: currentDate,
-        productID: -generatedID
+        productID: Math.abs(generatedID)
       },
       () => {
-        const formData = new FormData();
         formData.append("productID", this.state.productID);
         formData.append("productName", this.state.productName);
         formData.append("productPrice", this.state.productPrice);
         formData.append("productDateAdded", this.state.productDateAdded);
         formData.append("productType", this.state.productType);
         formData.append("productStatus", this.state.productStatus);
-        formData.append("productImage", this.state.productImage);
-        axios.post("/upload", formData);
-        const imageData = new FormData();
         for (let i = 0; i < this.state.productImages.length; i++) {
-          imageData.append("productImage", this.state.productImages[i]);
+          formData.append("productImage", this.state.productImages[i]);
         }
-        axios.post("/upload/" + this.state.productID, imageData);
+
+        axios({
+          method: "post",
+          url: "/upload",
+          data: formData,
+          config: { headers: { "Content-Type": "multipart/form-data" } }
+        }).then(() => {
+          this.setState({
+            uploadingStatus: "uploaded"
+          });
+          socket.emit("NEW_PRODUCT_UPLOADED", {
+            productID: this.state.productID
+          });
+        });
       }
     );
+
+    document.getElementById("upload-form").reset();
+  };
+
+  handleChangeUploadStatus = () => {
+    const newStatus =
+      this.state.uploadingStatus === "notUploaded" ? "uploaded" : "notUploaded";
+    this.setState({
+      uploadingStatus: newStatus
+    });
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleUploadProduct}>
+        <NotificationBox
+          text="Product uploaded!"
+          uploadingStatus={this.state.uploadingStatus}
+          buttonClick={this.handleChangeUploadStatus}
+        />
+        <form id="upload-form" onSubmit={this.handleUploadProduct}>
           <label>
             Product Name:
             <input
-              value={this.state.productName}
               name="productName"
               type="text"
               onChange={this.handleInputChange}
@@ -86,7 +111,6 @@ class ProductUpload extends Component {
           <label>
             Product Price:
             <input
-              value={this.state.productPrice}
               name="productPrice"
               type="text"
               onChange={this.handleInputChange}
@@ -101,6 +125,7 @@ class ProductUpload extends Component {
                 onChange={this.handleFileChange}
                 multiple
               />
+
               <ReactTooltip place="top" type="dark" effect="float" />
             </div>
           </label>

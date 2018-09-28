@@ -1,0 +1,37 @@
+.notification {
+  color: #376b06;
+  background-color: rgba(75, 181, 67, 0.8);
+  margin: auto;
+  height: 5em;
+  line-height: 4em;
+  padding-left: 1em;
+  padding-right: 1em;
+  animation: imganim 1s;
+  animation-fill-mode: forwards;
+  border-radius: 0.4em;
+}
+@keyframes imganim {
+  from {
+    height: 5em;
+    line-height: 5em;
+  }
+  to {
+    height: 4em;
+    line-height: 4em;
+  }
+}
+
+.notification:active {
+  height: 4em;
+}
+
+.invisible {
+  display: none;
+}
+
+.notification-button {
+  float: right;
+  background: transparent;
+  color: #376b06;
+  border: 0;
+}

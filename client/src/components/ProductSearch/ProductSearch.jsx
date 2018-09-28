@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "./Card";
 import "./ProductSearch.css";
+import socket from "../../SocketManager";
 
 /**
  * https://www.youtube.com/watch?v=OlVkYnVXPl0
@@ -10,53 +11,48 @@ class ProductSearch extends Component {
   constructor() {
     super();
     this.state = {
-      prods: [],
       search: "",
       products: [],
       filteredProducts: []
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     fetch("/products")
       .then(res => res.json())
       .then(res => {
-        this.setState(
-          {
-            products: res,
-            filteredProducts: res
-          }
-
-          /* {
-            prods: res
-          },
-          () => {
-            this.linkProductsToImages();
-          } */
-        );
+        const products = this.linkProductsWithImages(res);
+        this.setState({
+          products: products,
+          filteredProducts: products
+        });
       });
-  }
-  linkProductsToImages = () => {
-    let prods = this.state.prods;
+    socket.on("NEW_PRODUCT_UPLOADED", data => {
+      const newProduct = this.linkProductsWithImages(data);
+      const productsWithNewProduct = this.state.products.concat(newProduct);
+      this.setState({
+        products: productsWithNewProduct
+      });
+    });
+  };
+
+  linkProductsWithImages = products => {
     let productsWithImages = new Map();
-    for (let i = 0; i < prods.length; i++) {
-      if (productsWithImages.has(prods[i].Tootekood)) {
-        productsWithImages.get(prods[i].Tootekood).push(prods[i].Nimetus);
-        prods.splice(i, 1);
+    for (let i = 0; i < products.length; i++) {
+      if (productsWithImages.has(products[i].Tootekood)) {
+        productsWithImages.get(products[i].Tootekood).push(products[i].Nimetus);
+        products.splice(i, 1);
       } else {
         let images = [];
-        images.push(prods[i].Nimetus);
-        productsWithImages.set(prods[i].Tootekood, images);
+        images.push(products[i].Nimetus);
+        productsWithImages.set(products[i].Tootekood, images);
       }
     }
 
-    for (let i = 0; i < prods.length; i++) {
-      prods[i].Pildid = productsWithImages.get(prods[i].Tootekood);
+    for (let i = 0; i < products.length; i++) {
+      products[i].Pildid = productsWithImages.get(products[i].Tootekood);
     }
-    this.setState({
-      products: prods,
-      filteredProducts: prods
-    });
+    return products;
   };
 
   handleInputChange = event => {

@@ -1,0 +1,19 @@
+.carousel-fade .carousel-item {
+  display: block;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+}
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+.carousel,
+.carousel-item {
+  width: 115rem;
+  height: 100%;
+  border-radius: 25px;
+  opacity: 0.8;
+  position: relative;
+  margin: auto;
+}
