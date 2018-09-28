@@ -14,11 +14,6 @@ class Card extends Component {
         <ul className="product-card__list">
           <li>{this.state.productName}</li>
           <li>{this.state.productPrice}</li>
-          <img
-            className="product-card__image"
-            src={"/image/" + this.state.productImages[0]}
-            alt="img"
-          />
         </ul>
       </div>
     );

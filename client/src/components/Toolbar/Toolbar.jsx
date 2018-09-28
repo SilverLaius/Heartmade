@@ -30,10 +30,7 @@ const toolbar = () => (
         </NavDropdown>
       </Nav>
       <Nav pullRight>
-        <NavItem eventKey={1} href="#">
-          Sign up
-        </NavItem>
-        <NavItem eventKey={2} href="#">
+        <NavItem eventKey={6} href="/login">
           Log in
         </NavItem>
       </Nav>

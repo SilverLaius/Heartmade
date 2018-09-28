@@ -53,8 +53,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  const productsQuery =
-    "SELECT * FROM Tooted JOIN Toodete_pildid ON Tooted.Tootekood = Toodete_pildid.Tootekood;";
+  const productsQuery = "SELECT * FROM Tooted";
 
   connection.query(productsQuery, (err, results) => {
     if (err) throw err;

@@ -23,11 +23,16 @@ class ProductSearch extends Component {
       .then(res => {
         this.setState(
           {
+            products: res,
+            filteredProducts: res
+          }
+
+          /* {
             prods: res
           },
           () => {
             this.linkProductsToImages();
-          }
+          } */
         );
       });
   }
