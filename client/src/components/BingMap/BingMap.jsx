@@ -47,7 +47,7 @@ class BingMap extends Component {
 
   render() {
     return (
-      <div className="mapContainer">
+      <div className="map-container">
         <div id="map" />
       </div>
     );

@@ -24,6 +24,8 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype === "image/png") {
       cb(null, path.join(__dirname, "../public/img"));
+    } else if (file.mimetype === "image/jpeg") {
+      cb(null, path.join(__dirname, "../public/img"));
     }
   },
   filename: (req, file, cb) => {
