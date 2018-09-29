@@ -11,6 +11,7 @@ import {
   FormGroup,
   FormControl
 } from "react-bootstrap";
+import carouselImg from "../images/pilt (1).png";
 import "./Piltpais.css";
 
 //import { Link } from "react-router-dom";
@@ -20,15 +21,15 @@ export default class karusell extends Component {
     return (
       <Carousel>
         <Carousel.Item>
-          <img src="assets/pilt (1).png" />
+          <img src={carouselImg} />
           <Carousel.Caption />
         </Carousel.Item>
         <Carousel.Item>
-          <img src="assets/pilt (1).png" />
+          <img src={carouselImg} />
           <Carousel.Caption />
         </Carousel.Item>
         <Carousel.Item>
-          <img src="assets/pilt (1).png" />
+          <img src={carouselImg} />
           <Carousel.Caption />
         </Carousel.Item>
       </Carousel>
