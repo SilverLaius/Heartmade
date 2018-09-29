@@ -7,7 +7,9 @@ import {
   OverlayTrigger
 } from "react-bootstrap";
 
-class Login extends Component {
+import { onOpenLoginPopup } from "../event-bus.js";
+
+class Anmelden extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -17,6 +19,16 @@ class Login extends Component {
     this.state = {
       show: false
     };
+  }
+
+  componentDidMount() {
+    this.subscription = onOpenLoginPopup(() => this.handleShow());
+  }
+
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.remove();
+    }
   }
 
   handleClose() {
@@ -37,12 +49,6 @@ class Login extends Component {
 
     return (
       <div>
-        <p>Click to get the full Modal experience!</p>
-
-        <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
-          Launch demo modal
-        </Button>
-
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
@@ -82,4 +88,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Anmelden;

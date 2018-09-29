@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Toolbar from "./components/Toolbar/Toolbar";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Startseite from "./components/Startseite";
 import Über from "./components/Über";
@@ -12,6 +11,7 @@ import Blog from "./components/Blog";
 import Shop from "./components/Shop";
 import Gratis from "./components/Gratis";
 import Häkelkurs from "./components/Häkelkurs";
+import Anmelden from "./components/Anmelden";
 
 class App extends Component {
   render() {
@@ -19,6 +19,7 @@ class App extends Component {
       <Router>
         <div>
           <Searchbar />
+          <Anmelden />
           <Piltpais />
           <Navbar />
           <Route exact path="/" component={Startseite} />
