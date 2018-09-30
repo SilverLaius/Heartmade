@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Startseite from "./components/Startseite";
 import Über from "./components/Über";
 import Buch from "./components/Buch";
-import Navbar from "./components/CustomNavbar";
+import Navbar from "./components/Navbar";
 import Searchbar from "./components/Searchbar";
 import epood from "./components/Epood1";
 import Piltpais from "./components/Piltpais";

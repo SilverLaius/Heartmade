@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import socket from "../SocketManager";
-import {
-  Grid,
-  Row,
-  Col,
-  Thumbnail,
-  Button,
-  Navbar,
-  Nav,
-  NavItem
-} from "react-bootstrap";
+import { Grid, Row, Col, Thumbnail, Button } from "react-bootstrap";
 import "./Epood1.css";
 
 export default class epood extends Component {
@@ -68,32 +59,34 @@ export default class epood extends Component {
   };
 
   // @param up to 3 products
-  rowOfProducts = products => {
+  /* rowOfProducts = products => {
     let productsInRow = [];
     for (let i = 0; i < products.length; i++) {
       productsInRow.push(
-        <Col xs={6} md={4}>
-          <Thumbnail src={"/image/" + products[i].Pildid[0]} alt="">
-            <h3>{products[i].Kirjeldus}</h3>
-            <p>
-              <Button bsStyle="primary">Info</Button>
-              &nbsp;
-              <Button bsStyle="default">In den Einkaufswagen</Button>
-            </p>
-          </Thumbnail>
-        </Col>
+        <Thumbnail
+          key={products[i].Tootekood}
+          src={"/image/" + products[i].Pildid[0]}
+          alt=""
+        >
+          <h3>{products[i].Kirjeldus}</h3>
+          <p>
+            <Button bsStyle="primary">Info</Button>
+            &nbsp;
+            <Button bsStyle="default">In den Einkaufswagen</Button>
+          </p>
+        </Thumbnail>
       );
     }
-    return <Row class="row display-flex">{productsInRow}</Row>;
-  };
+    return productsInRow;
+  }; */
 
-  productsInAllRows = products => {
+  /*  productsInAllRows = products => {
     let allRows = [];
     for (let i = 0; i < products.length; i += 3) {
       allRows.push(products.slice(i, i + 3));
     }
     return allRows;
-  };
+  }; */
 
   render() {
     let filteredProducts = this.state.products.filter(
@@ -111,9 +104,18 @@ export default class epood extends Component {
         </div>
         <div>
           <Grid>
-            {this.productsInAllRows(filteredProducts).map(rowOfProducts =>
-              this.rowOfProducts(rowOfProducts)
-            )}
+            {filteredProducts.map(product => (
+              <Row key={product.Tootekood}>
+                <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
+                  <h3>{product.Kirjeldus}</h3>
+                  <p>
+                    <Button bsStyle="primary">Info</Button>
+                    &nbsp;
+                    <Button bsStyle="default">In den Einkaufswagen</Button>
+                  </p>
+                </Thumbnail>
+              </Row>
+            ))}
           </Grid>
         </div>
       </div>
