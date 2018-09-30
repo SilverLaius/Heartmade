@@ -9,6 +9,7 @@ const mime = require("mime");
 const app = express();
 const config = require("../config/config");
 const socket = require("socket.io");
+const passHash = require("./hashing");
 
 const server = app.listen(3001, () => {
   console.log("Listening on port 3001");
@@ -23,6 +24,8 @@ app.use(cors());
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype === "image/png") {
+      cb(null, path.join(__dirname, "../public/img"));
+    } else if (file.mimetype === "image/jpeg") {
       cb(null, path.join(__dirname, "../public/img"));
     }
   },
@@ -52,8 +55,52 @@ connection.connect(err => {
   console.log("Connected!");
 });
 
-app.get("/", (req, res) => {
-  res.send("go to /products to see products list");
+app.post("/register", upload.any(), (req, res) => {
+  const email = req.body.email;
+  const checkQuery = `SELECT KasutajaID FROM Kasutajad WHERE E_post = '${email}'`;
+  connection.query(checkQuery, (err, results) => {
+    if (err) throw err;
+    if (results[0] == null) {
+      const userID = req.body.userid;
+      const firstname = req.body.firstname;
+      const lastname = req.body.lastname;
+      const date = req.body.date;
+      const salt = passHash.salt(16);
+      const hashedPass = passHash.hash(req.body.password, salt);
+      const postQuery = `INSERT INTO Kasutajad (KasutajaID, Eesnimi, Perekonnanimi, E_post, Parool, LiikID, Liitunud, StaatusID, Salt) values ('${userID}' ,'${firstname}', '${lastname}', '${email}', '${hashedPass}', '1', '${date}', '1', '${salt}');`;
+      connection.query(postQuery, (err, results) => {
+        if (err) throw err;
+      });
+      res.send("user created");
+    } else {
+      res.send("email exists");
+    }
+  });
+});
+
+app.post("/login", upload.any(), (req, res) => {
+  const email = req.body.email;
+  checkQuery = `SELECT Salt FROM Kasutajad WHERE E_post = '${email}'`;
+  connection.query(checkQuery, (err, results) => {
+    if (err) throw err;
+    if (results[0] == null) {
+      res.send("email doesn't exist");
+    } else {
+      const salt = results[0].Salt;
+      const hashedPass = passHash.hash(req.body.password, salt);
+      passCheckQuery = `SELECT LiikID, StaatusID FROM Kasutajad WHERE Parool = '${hashedPass}'`;
+      connection.query(passCheckQuery, (err, passCheckResults) => {
+        if (err) throw err;
+        if (passCheckResults[0] == null) {
+          console.log("wrong password");
+          res.send("Wrong password");
+        } else {
+          console.log(passCheckResults[0]);
+        }
+      });
+    }
+  });
+  console.log("login hit");
 });
 
 app.get("/products", (req, res) => {

@@ -118,7 +118,7 @@ class ProductUpload extends Component {
           </label>
           <label>
             Product Image:
-            <div data-tip="hello world">
+            <div data-tip="Only supports .png format at the moment">
               <input
                 name="productImage"
                 type="file"
