@@ -12,6 +12,7 @@ import Shop from "./components/Shop";
 import Gratis from "./components/Gratis";
 import Häkelkurs from "./components/Häkelkurs";
 import Anmelden from "./components/Anmelden";
+import Register from "./components/Register";
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
         <div>
           <Searchbar />
           <Anmelden />
+          <Register />
           <Piltpais />
           <Navbar />
           <Route exact path="/" component={Startseite} />

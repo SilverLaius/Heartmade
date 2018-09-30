@@ -1,12 +1,18 @@
 import React, { Component } from "react";
+import axios from "axios";
 import {
   Modal,
   Button,
   Popover,
   Tooltip,
-  OverlayTrigger
+  Form,
+  FormGroup,
+  FormControl,
+  Col,
+  ControlLabel,
+  Checkbox
 } from "react-bootstrap";
-
+import "./Anmelden.css";
 import { onOpenLoginPopup } from "../event-bus.js";
 
 class Anmelden extends Component {
@@ -51,33 +57,44 @@ class Anmelden extends Component {
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Login</Modal.Title>
+            <Modal.Title>Anmelden</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Login</h4>
-            <p>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
+            <Form horizontal>
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={2}>
+                  Email
+                </Col>
+                <Col sm={10}>
+                  <FormControl type="email" placeholder="Email" name="email" />
+                </Col>
+              </FormGroup>
 
-            <h4>Popover in a modal</h4>
-            <p>
-              there is a{" "}
-              <OverlayTrigger overlay={popover}>
-                <a href="#popover">popover</a>
-              </OverlayTrigger>{" "}
-              here
-            </p>
+              <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} sm={2}>
+                  Password
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                  />
+                </Col>
+              </FormGroup>
 
-            <h4>Tooltips in a modal</h4>
-            <p>
-              there is a{" "}
-              <OverlayTrigger overlay={tooltip}>
-                <a href="#tooltip">tooltip</a>
-              </OverlayTrigger>{" "}
-              here
-            </p>
+              <FormGroup>
+                <Col smOffset={2} sm={10}>
+                  <Checkbox>Remember me</Checkbox>
+                </Col>
+              </FormGroup>
 
-            <hr />
+              <FormGroup>
+                <Col smOffset={2} sm={10}>
+                  <Button type="submit">Sign in</Button>
+                </Col>
+              </FormGroup>
+            </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
