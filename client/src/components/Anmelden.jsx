@@ -23,6 +23,8 @@ class Anmelden extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
+      email: "",
+      password: "",
       show: false
     };
   }
@@ -45,14 +47,29 @@ class Anmelden extends Component {
     this.setState({ show: true });
   }
 
-  render() {
-    const popover = (
-      <Popover id="modal-popover" title="popover">
-        very popover. such engagement
-      </Popover>
-    );
-    const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    this.setState({}, () => {
+      formData.append("email", this.state.email);
+      formData.append("password", this.state.password);
+
+      axios({
+        method: "post",
+        url: "/login",
+        data: formData,
+        config: { headers: { "Content-Type": "multipart/form-data" } }
+      });
+    });
+    this.handleClose();
+  };
+
+  render() {
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -60,13 +77,18 @@ class Anmelden extends Component {
             <Modal.Title>Anmelden</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form horizontal>
+            <Form horizontal onSubmit={this.handleSubmit}>
               <FormGroup controlId="formHorizontalEmail">
                 <Col componentClass={ControlLabel} sm={2}>
                   Email
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="email" placeholder="Email" name="email" />
+                  <FormControl
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    onChange={this.handleInputChange}
+                  />
                 </Col>
               </FormGroup>
 
@@ -79,6 +101,7 @@ class Anmelden extends Component {
                     type="password"
                     placeholder="Password"
                     name="password"
+                    onChange={this.handleInputChange}
                   />
                 </Col>
               </FormGroup>

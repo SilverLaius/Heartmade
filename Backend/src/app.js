@@ -80,8 +80,27 @@ app.post("/register", upload.any(), (req, res) => {
 
 app.post("/login", upload.any(), (req, res) => {
   const email = req.body.email;
-  //const hashedPass = passHash.hash(req.body.password, salt);
-  res.send("Login hit!");
+  checkQuery = `SELECT Salt FROM Kasutajad WHERE E_post = '${email}'`;
+  connection.query(checkQuery, (err, results) => {
+    if (err) throw err;
+    if (results[0] == null) {
+      res.send("email doesn't exist");
+    } else {
+      const salt = results[0].Salt;
+      const hashedPass = passHash.hash(req.body.password, salt);
+      passCheckQuery = `SELECT LiikID, StaatusID FROM Kasutajad WHERE Parool = '${hashedPass}'`;
+      connection.query(passCheckQuery, (err, passCheckResults) => {
+        if (err) throw err;
+        if (passCheckResults[0] == null) {
+          console.log("wrong password");
+          res.send("Wrong password");
+        } else {
+          console.log(passCheckResults[0]);
+        }
+      });
+    }
+  });
+  console.log("login hit");
 });
 
 app.get("/products", (req, res) => {
