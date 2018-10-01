@@ -9,30 +9,35 @@ import {
   Button,
   Form,
   FormGroup,
-  FormControl
+  FormControl,
+  Image
 } from "react-bootstrap";
-import carouselImg from "../images/pilt (1).png";
+import piltpaisImg from "../images/pilt (1).png";
 import "./Piltpais.css";
 
 //import { Link } from "react-router-dom";
 
-export default class karusell extends Component {
+export default class piltpäis extends Component {
   render() {
     return (
-      <Carousel>
-        <Carousel.Item>
-          <img src={carouselImg} />
-          <Carousel.Caption />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={carouselImg} />
-          <Carousel.Caption />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={carouselImg} />
-          <Carousel.Caption />
-        </Carousel.Item>
-      </Carousel>
+      <div className="piltpäis">
+        <img src={piltpaisImg} className="piltpäis-pilt" />
+      </div>
     );
   }
 }
+
+/*  <Carousel>
+        <Carousel.Item>
+          <img src={carouselImg} />
+          <Carousel.Caption />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img src={carouselImg} />
+          <Carousel.Caption />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img src={carouselImg} />
+          <Carousel.Caption />
+        </Carousel.Item>
+      </Carousel> */

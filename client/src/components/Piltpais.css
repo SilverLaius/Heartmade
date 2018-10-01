@@ -1,4 +1,4 @@
-.carousel-fade .carousel-item {
+/*.carousel-fade .carousel-item {
   display: block;
   position: relative;
   opacity: 0;
@@ -16,4 +16,14 @@
   opacity: 0.8;
   position: relative;
   margin: auto;
+}
+*/
+
+.piltpäis-pilt {
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
