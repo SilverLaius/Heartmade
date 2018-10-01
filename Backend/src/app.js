@@ -7,11 +7,12 @@ const path = require("path");
 const crypto = require("crypto");
 const mime = require("mime");
 const app = express();
+const server = require("http").createServer(app);
 const config = require("../config/config");
-const socket = require("socket.io");
+const io = require("socket.io").listen(server);
 const passHash = require("./hashing");
 
-const server = app.listen(3001, () => {
+server.listen(3001, () => {
   console.log("Listening on port 3001");
 });
 
@@ -137,8 +138,7 @@ app.post("/upload", upload.array("productImage"), (req, res) => {
   res.send();
 });
 
-const io = socket(server);
-io.on("connection", socket => {
+io.sockets.on("connection", socket => {
   console.log("made socket connection");
 
   socket.on("disconnect", () => {
