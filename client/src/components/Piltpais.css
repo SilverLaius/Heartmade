@@ -22,8 +22,8 @@
 .piltpäis-pilt {
   margin-top: 0rem;
   margin-bottom: 0rem;
-  max-width: 120rem;
-  max-height: 50rem;
+  max-width: 100%;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
 }
