@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-import { Jumbotron, Image } from "react-bootstrap";
-=======
 import {
   Carousel,
   Badge,
@@ -12,10 +9,10 @@ import {
   Button,
   Form,
   FormGroup,
-  FormControl
+  FormControl,
+  Image
 } from "react-bootstrap";
 import carouselImg from "../images/pilt (1).png";
->>>>>>> c02fe668baf50c14bb76e5378c711f676ff256cd
 import "./Piltpais.css";
 
 //import { Link } from "react-router-dom";

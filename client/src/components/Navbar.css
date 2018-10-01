@@ -62,7 +62,8 @@
 }
 
 .toolbar__navigation-items {
-  margin: auto;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .toolbar__navigation-items ul {

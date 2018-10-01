@@ -7,18 +7,7 @@ export default class Buch extends Component {
     return (
       <div>
         <Grid>
-          <Col xs={12} sm={8} smOffset={2}>
-            <Image
-              src="assets/pilt (3).jpg"
-              className="about-profile-pic"
-              rounded="true"
-            />
-            <h3> Kas sa oled rebane?</h3>
-            <p> Blablablablabla</p>
-            <p> Blablablablabla</p>
-            <p> Blablablablabla</p>
-            <p> Blablablablabla</p>
-          </Col>
+          <Col xs={12} sm={8} smOffset={2} />
         </Grid>
       </div>
       /*<div>

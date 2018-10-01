@@ -58,35 +58,27 @@ export default class epood extends Component {
     });
   };
 
-  // @param up to 3 products
-  /* rowOfProducts = products => {
-    let productsInRow = [];
-    for (let i = 0; i < products.length; i++) {
-      productsInRow.push(
-        <Thumbnail
-          key={products[i].Tootekood}
-          src={"/image/" + products[i].Pildid[0]}
-          alt=""
-        >
-          <h3>{products[i].Kirjeldus}</h3>
-          <p>
-            <Button bsStyle="primary">Info</Button>
-            &nbsp;
-            <Button bsStyle="default">In den Einkaufswagen</Button>
-          </p>
-        </Thumbnail>
-      );
-    }
-    return productsInRow;
-  }; */
-
-  /*  productsInAllRows = products => {
-    let allRows = [];
+  getRowsOfProducts = products => {
+    let rowsOfProducts = [];
     for (let i = 0; i < products.length; i += 3) {
-      allRows.push(products.slice(i, i + 3));
+      const productsInRow = products.slice(i, i + 3);
+      let columnsInRow = [];
+      for (let j = 0; j < productsInRow.length; j++) {
+        columnsInRow.push(
+          <Thumbnail src={"/image/" + productsInRow[j].Pildid[0]} alt="">
+            <h3>{productsInRow[j].Kirjeldus}</h3>
+            <p>
+              <Button bsStyle="primary">Info</Button>
+              &nbsp;
+              <Button bsStyle="default">In den Einkaufswagen</Button>
+            </p>
+          </Thumbnail>
+        );
+      }
+      rowsOfProducts.push(columnsInRow);
     }
-    return allRows;
-  }; */
+    return rowsOfProducts;
+  };
 
   render() {
     let filteredProducts = this.state.products.filter(
@@ -94,7 +86,7 @@ export default class epood extends Component {
     );
     return (
       <div>
-        <div>
+        <div className="search-box">
           <input
             name="searchbox"
             type="text"
@@ -102,10 +94,10 @@ export default class epood extends Component {
             onChange={this.handleInputChange}
           />
         </div>
-        <div>
-          <Grid>
+        <Grid fluid>
+          <Row>
             {filteredProducts.map(product => (
-              <Row key={product.Tootekood}>
+              <Col md={4} sm={4} key={product.Tootekood}>
                 <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
                   <h3>{product.Kirjeldus}</h3>
                   <p>
@@ -114,10 +106,10 @@ export default class epood extends Component {
                     <Button bsStyle="default">In den Einkaufswagen</Button>
                   </p>
                 </Thumbnail>
-              </Row>
+              </Col>
             ))}
-          </Grid>
-        </div>
+          </Row>
+        </Grid>
       </div>
     );
   }
