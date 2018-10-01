@@ -18,7 +18,7 @@ import "./Searchbar.css";
 export default class Searchbar extends Component {
   render() {
     return (
-      <Navbar className="Searchbar">
+      <Navbar>
         <Navbar.Header>
           <Navbar.Toggle />
         </Navbar.Header>
