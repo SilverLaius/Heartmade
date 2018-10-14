@@ -56,6 +56,27 @@ connection.connect(err => {
   console.log("Connected!");
 });
 
+app.post("/statistics", upload.any(), (req, res) => {
+  const page = req.body.page;
+  const date = req.body.date;
+  const ip = (
+    req.headers["x-forwarded-for"] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress
+  ).replace(/^.*:/, "");
+  const postQuery = `INSERT INTO Statistika (ip, aeg, lehekülg) VALUES ('${ip}','${date}','${page}');`;
+  console.log(ip, date, page);
+  connection.query(postQuery, (err, results) => {
+    if (err) throw err;
+    else {
+      console.log("postitatud");
+    }
+  });
+
+  res.send("xd");
+});
+
 app.post("/register", upload.any(), (req, res) => {
   const email = req.body.email;
   const checkQuery = `SELECT KasutajaID FROM Kasutajad WHERE E_post = '${email}'`;
@@ -105,6 +126,16 @@ app.get("/products", (req, res) => {
     "SELECT * FROM Tooted JOIN Toodete_pildid ON Tooted.Tootekood = Toodete_pildid.Tootekood;";
   connection.query(productsQuery, (err, results) => {
     if (err) throw err;
+    res.send(results);
+  });
+});
+
+app.get("/productcount", (req, res) => {
+  const productCountQuery =
+    "SELECT COUNT(*) as count FROM Tooted JOIN Toodete_pildid ON Tooted.Tootekood = Toodete_pildid.Tootekood;";
+  connection.query(productCountQuery, (err, results) => {
+    if (err) throw err;
+    console.log(results);
     res.send(results);
   });
 });

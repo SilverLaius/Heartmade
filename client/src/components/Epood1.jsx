@@ -8,6 +8,7 @@ export default class epood extends Component {
   constructor() {
     super();
     this.state = {
+      productCount: 0,
       search: "",
       products: [],
       filteredProducts: [],
@@ -26,21 +27,20 @@ export default class epood extends Component {
         });
       });
 
-    componentDidMount = () => {
-      fetch("/kogus")
-        .then(res => res.json())
-        .then(kogus =>
-          this.setState({
-            kogus
-          })
-        );
-    };
+    fetch("/productcount")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          productCount: res[0].count
+        });
+      });
 
     socket.on("NEW_PRODUCT_UPLOADED", data => {
       const newProduct = this.linkProductsWithImages(data);
       const productsWithNewProduct = this.state.products.concat(newProduct);
       this.setState({
-        products: productsWithNewProduct
+        products: productsWithNewProduct,
+        productCount: this.state.productCount + 1
       });
     });
   };
@@ -110,8 +110,9 @@ export default class epood extends Component {
         <div className="tooteidkokku">
           <p>
             Produkte in Shop:{" "}
-            <Badge class="badge badge-light">{this.state.kogus}</Badge>
+            <Badge class="badge badge-light">{this.state.productCount}</Badge>
           </p>
+          <p>Produkte in Shop: {this.state.productCount}</p>
         </div>
         <Grid fluid>
           <Row>

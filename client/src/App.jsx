@@ -13,6 +13,7 @@ import Gratis from "./components/Gratis";
 import Häkelkurs from "./components/Häkelkurs";
 import Anmelden from "./components/Anmelden";
 import Register from "./components/Register";
+import { routeApplicationPart } from "./RouteWrapper";
 
 class App extends Component {
   render() {
@@ -24,13 +25,24 @@ class App extends Component {
           <Register />
           <Piltpais />
           <Navbar />
-          <Route exact path="/" component={Startseite} />
-          <Route path="/über" component={Über} />
-          <Route path="/buch" component={Buch} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/shop" component={Shop} />
-          <Route path="/gratis" component={Gratis} />
-          <Route path="/häkelkurs" component={Häkelkurs} />
+
+          <Route
+            exact
+            path="/"
+            component={routeApplicationPart(Startseite, "Startseite")}
+          />
+          <Route path="/über" component={routeApplicationPart(Über, "Über")} />
+          <Route path="/buch" component={routeApplicationPart(Buch, "Buch")} />
+          <Route path="/blog" component={routeApplicationPart(Blog, "Blog")} />
+          <Route path="/shop" component={routeApplicationPart(Shop, "Shop")} />
+          <Route
+            path="/gratis"
+            component={routeApplicationPart(Gratis, "Gratis")}
+          />
+          <Route
+            path="/häkelkurs"
+            component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
+          />
           <epood />
         </div>
       </Router>
