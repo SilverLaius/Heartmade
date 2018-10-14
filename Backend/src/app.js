@@ -7,11 +7,12 @@ const path = require("path");
 const crypto = require("crypto");
 const mime = require("mime");
 const app = express();
+const server = require("http").createServer(app);
 const config = require("../config/config");
-const socket = require("socket.io");
+const io = require("socket.io").listen(server);
 const passHash = require("./hashing");
 
-const server = app.listen(3001, () => {
+server.listen(3001, () => {
   console.log("Listening on port 3001");
 });
 
@@ -80,27 +81,23 @@ app.post("/register", upload.any(), (req, res) => {
 
 app.post("/login", upload.any(), (req, res) => {
   const email = req.body.email;
-  checkQuery = `SELECT Salt FROM Kasutajad WHERE E_post = '${email}'`;
+  checkQuery = `SELECT Salt, Parool, LiikID, StaatusID FROM Kasutajad WHERE E_post = '${email}'`;
   connection.query(checkQuery, (err, results) => {
     if (err) throw err;
-    if (results[0] == null) {
-      res.send("email doesn't exist");
+    const kasutaja = results[0];
+    if (kasutaja == null) {
+      console.log("user doesnt exist");
+      res.send("user doesn't exist");
     } else {
-      const salt = results[0].Salt;
+      const salt = kasutaja.Salt;
       const hashedPass = passHash.hash(req.body.password, salt);
-      passCheckQuery = `SELECT LiikID, StaatusID FROM Kasutajad WHERE Parool = '${hashedPass}'`;
-      connection.query(passCheckQuery, (err, passCheckResults) => {
-        if (err) throw err;
-        if (passCheckResults[0] == null) {
-          console.log("wrong password");
-          res.send("Wrong password");
-        } else {
-          console.log(passCheckResults[0]);
-        }
-      });
+      if (hashedPass === kasutaja.Parool) {
+        console.log("Logged in");
+      } else {
+        console.log("wrong password");
+      }
     }
   });
-  console.log("login hit");
 });
 
 app.get("/products", (req, res) => {
@@ -141,8 +138,7 @@ app.post("/upload", upload.array("productImage"), (req, res) => {
   res.send();
 });
 
-const io = socket(server);
-io.on("connection", socket => {
+io.sockets.on("connection", socket => {
   console.log("made socket connection");
 
   socket.on("disconnect", () => {
