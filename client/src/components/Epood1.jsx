@@ -94,6 +94,12 @@ export default class epood extends Component {
             onChange={this.handleInputChange}
           />
         </div>
+        <div className="tooteidkokku">
+          <p>
+            {" "}
+            Produkte in Shop: <Button bsStyle="primary">?</Button>
+          </p>
+        </div>
         <Grid fluid>
           <Row>
             {filteredProducts.map(product => (
