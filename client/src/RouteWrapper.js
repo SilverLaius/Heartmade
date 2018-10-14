@@ -13,10 +13,9 @@ export const routeApplicationPart = (WrappedComponent, pageName) => {
     }
     componentDidMount() {
       const formData = new FormData();
-      const currentDate = new Date()
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " ");
+      const currentDate = new Date(
+        new Date().getTime() + 3 * 60 * 60 * 1000
+      ).toISOString();
       this.setState(
         {
           date: currentDate

@@ -49,7 +49,8 @@ const connection = mySql.createConnection({
   host: config.database.host,
   user: config.database.user,
   password: config.database.password,
-  database: config.database.database
+  database: config.database.database,
+  multipleStatements: true
 });
 
 connection.connect(err => {
@@ -77,31 +78,27 @@ app.post("/statistics", upload.any(), (req, res) => {
 });
 
 app.get("/statistics", (req, res) => {
-  data = {};
   const popKülastaajaQuery =
-    "SELECT ip, COUNT(*) AS magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1";
-  connection.query(popKülastaajaQuery, (err, results) => {
-    if (err) throw err;
-    const populaarseimKülastaja = results[0].ip;
-    console.log(populaarseimKülastaja);
-    data.külastaja = populaarseimKülastaja;
-  });
+    "SELECT ip, COUNT(*) AS magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1;";
+  const popLehtQuery =
+    "SELECT lehekülg, COUNT(*) as magnitude FROM Statistika GROUP BY lehekülg ORDER BY magnitude DESC LIMIT 1;";
   const popBrauserQuery =
-    "SELECT brauser, COUNT(*) as magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1";
-  connection.query(popBrauserQuery, (err, results) => {
-    if (err) throw err;
-    const populaarseimBrauser = results[0].brauser;
-    console.log(populaarseimBrauser);
-  });
+    "SELECT brauser, COUNT(*) as magnitude FROM Statistika GROUP BY brauser ORDER BY magnitude DESC LIMIT 1;";
   const popKellQuery =
-    "SELECT HOUR(aeg), COUNT(*) as magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1";
-  connection.query(popKellQuery, (err, results) => {
-    if (err) throw err;
-    const populaarseimKell = results[0]["HOUR(aeg)"];
-    console.log(populaarseimKell);
-  });
-  console.log(data);
-  res.send(data);
+    "SELECT HOUR(aeg) as h, COUNT(*) as magnitude FROM Statistika GROUP BY h ORDER BY magnitude DESC LIMIT 1;";
+  connection.query(
+    popKülastaajaQuery + popLehtQuery + popBrauserQuery + popKellQuery,
+    (err, results) => {
+      if (err) throw err;
+      data = {
+        külastaja: results[0][0].ip,
+        lehekülg: results[1][0].lehekülg,
+        brauser: results[2][0].brauser,
+        kell: results[3][0].h
+      };
+      res.send(data);
+    }
+  );
 });
 
 app.post("/register", upload.any(), (req, res) => {

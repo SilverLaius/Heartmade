@@ -5,7 +5,7 @@ import Über from "./components/Über";
 import Buch from "./components/Buch";
 import Navbar from "./components/Navbar";
 import Searchbar from "./components/Searchbar";
-import epood from "./components/Epood1";
+import Epood from "./components/Epood1";
 import Piltpais from "./components/Piltpais";
 import Blog from "./components/Blog";
 import Shop from "./components/Shop";
@@ -13,6 +13,7 @@ import Gratis from "./components/Gratis";
 import Häkelkurs from "./components/Häkelkurs";
 import Anmelden from "./components/Anmelden";
 import Register from "./components/Register";
+import Statistics from "./components/Statistics";
 import { routeApplicationPart } from "./RouteWrapper";
 
 class App extends Component {
@@ -25,11 +26,14 @@ class App extends Component {
           <Register />
           <Piltpais />
           <Navbar />
-
           <Route
             exact
             path="/"
             component={routeApplicationPart(Startseite, "Startseite")}
+          />
+          <Route
+            path="/statistics"
+            component={routeApplicationPart(Statistics, "Statistics")}
           />
           <Route path="/über" component={routeApplicationPart(Über, "Über")} />
           <Route path="/buch" component={routeApplicationPart(Buch, "Buch")} />
@@ -43,7 +47,6 @@ class App extends Component {
             path="/häkelkurs"
             component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
           />
-          <epood />
         </div>
       </Router>
       /*<div className="App">
