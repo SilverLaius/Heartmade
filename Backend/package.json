@@ -21,6 +21,7 @@
     "mysql": "^2.16.0",
     "nodemon": "^1.18.4",
     "socket.io": "^2.1.1",
+    "ua-parser-js": "^0.7.18",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
