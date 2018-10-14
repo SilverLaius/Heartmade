@@ -11,6 +11,7 @@ const server = require("http").createServer(app);
 const config = require("../config/config");
 const io = require("socket.io").listen(server);
 const passHash = require("./hashing");
+var UAParser = require("ua-parser-js");
 
 server.listen(3001, () => {
   console.log("Listening on port 3001");
@@ -48,7 +49,8 @@ const connection = mySql.createConnection({
   host: config.database.host,
   user: config.database.user,
   password: config.database.password,
-  database: config.database.database
+  database: config.database.database,
+  multipleStatements: true
 });
 
 connection.connect(err => {
@@ -65,16 +67,38 @@ app.post("/statistics", upload.any(), (req, res) => {
     req.socket.remoteAddress ||
     req.connection.socket.remoteAddress
   ).replace(/^.*:/, "");
-  const postQuery = `INSERT INTO Statistika (ip, aeg, lehekülg) VALUES ('${ip}','${date}','${page}');`;
-  console.log(ip, date, page);
+  var parser = new UAParser();
+  var ua = req.headers["user-agent"];
+  var browserName = parser.setUA(ua).getBrowser().name;
+  const postQuery = `INSERT INTO Statistika (ip, aeg, lehekülg,brauser) VALUES ('${ip}','${date}','${page}','${browserName}');`;
   connection.query(postQuery, (err, results) => {
     if (err) throw err;
-    else {
-      console.log("postitatud");
-    }
   });
+  res.end();
+});
 
-  res.send("xd");
+app.get("/statistics", (req, res) => {
+  const popKülastaajaQuery =
+    "SELECT ip, COUNT(*) AS magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1;";
+  const popLehtQuery =
+    "SELECT lehekülg, COUNT(*) as magnitude FROM Statistika GROUP BY lehekülg ORDER BY magnitude DESC LIMIT 1;";
+  const popBrauserQuery =
+    "SELECT brauser, COUNT(*) as magnitude FROM Statistika GROUP BY brauser ORDER BY magnitude DESC LIMIT 1;";
+  const popKellQuery =
+    "SELECT HOUR(aeg) as h, COUNT(*) as magnitude FROM Statistika GROUP BY h ORDER BY magnitude DESC LIMIT 1;";
+  connection.query(
+    popKülastaajaQuery + popLehtQuery + popBrauserQuery + popKellQuery,
+    (err, results) => {
+      if (err) throw err;
+      data = {
+        külastaja: results[0][0].ip,
+        lehekülg: results[1][0].lehekülg,
+        brauser: results[2][0].brauser,
+        kell: results[3][0].h
+      };
+      res.send(data);
+    }
+  );
 });
 
 app.post("/register", upload.any(), (req, res) => {

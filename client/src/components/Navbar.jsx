@@ -50,7 +50,10 @@ class Navbar extends Component {
                 <Link to="/blog">Blog</Link>
               </li>
               <li>
-                <Link to="/">Shop</Link>
+                <Link to="/shop">Shop</Link>
+              </li>
+              <li>
+                <Link to="/statistics">Statistics</Link>
               </li>
               <li>
                 <Link to="/gratis">Gratis</Link>
@@ -101,6 +104,9 @@ class Navbar extends Component {
                 </li>
                 <li>
                   <Link to="/shop">Shop</Link>
+                </li>
+                <li>
+                  <Link to="/statistics">Statistics</Link>
                 </li>
                 <li>
                   <Link to="/gratis">Gratis</Link>
