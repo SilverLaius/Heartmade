@@ -157,6 +157,16 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.get("/productcount", (req, res) => {
+  const productCountQuery =
+    "SELECT COUNT(*) as count FROM Tooted JOIN Toodete_pildid ON Tooted.Tootekood = Toodete_pildid.Tootekood;";
+  connection.query(productCountQuery, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send(results);
+  });
+});
+
 app.get("/image/:id", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/img/", req.params.id));
 });
