@@ -20,9 +20,12 @@
 */
 
 .piltpäis-pilt {
+  display: flex;
+  object-fit: cover;
+  flex-wrap: wrap;
   margin-top: 0rem;
   margin-bottom: 0rem;
-  max-width: 100%;
+  max-width: 60%;
   height: auto;
   margin-left: auto;
   margin-right: auto;
