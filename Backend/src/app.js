@@ -56,6 +56,27 @@ connection.connect(err => {
   console.log("Connected!");
 });
 
+app.post("/statistics", upload.any(), (req, res) => {
+  const page = req.body.page;
+  const date = req.body.date;
+  const ip = (
+    req.headers["x-forwarded-for"] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress
+  ).replace(/^.*:/, "");
+  const postQuery = `INSERT INTO Statistika (ip, aeg, lehekülg) VALUES ('${ip}','${date}','${page}');`;
+  console.log(ip, date, page);
+  connection.query(postQuery, (err, results) => {
+    if (err) throw err;
+    else {
+      console.log("postitatud");
+    }
+  });
+
+  res.send("xd");
+});
+
 app.post("/register", upload.any(), (req, res) => {
   const email = req.body.email;
   const checkQuery = `SELECT KasutajaID FROM Kasutajad WHERE E_post = '${email}'`;
