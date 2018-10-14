@@ -112,7 +112,6 @@ export default class epood extends Component {
             Produkte in Shop:{" "}
             <Badge class="badge badge-light">{this.state.productCount}</Badge>
           </p>
-          <p>Produkte in Shop: {this.state.productCount}</p>
         </div>
         <Grid fluid>
           <Row>
