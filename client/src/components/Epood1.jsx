@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import socket from "../SocketManager";
-import { Grid, Row, Col, Thumbnail, Button } from "react-bootstrap";
+import { Grid, Row, Col, Thumbnail, Button, Badge } from "react-bootstrap";
 import "./Epood1.css";
 
 export default class epood extends Component {
@@ -10,7 +10,8 @@ export default class epood extends Component {
     this.state = {
       search: "",
       products: [],
-      filteredProducts: []
+      filteredProducts: [],
+      kogus: []
     };
   }
 
@@ -24,6 +25,17 @@ export default class epood extends Component {
           filteredProducts: products
         });
       });
+
+    componentDidMount = () => {
+      fetch("/kogus")
+        .then(res => res.json())
+        .then(kogus =>
+          this.setState({
+            kogus
+          })
+        );
+    };
+
     socket.on("NEW_PRODUCT_UPLOADED", data => {
       const newProduct = this.linkProductsWithImages(data);
       const productsWithNewProduct = this.state.products.concat(newProduct);
@@ -81,6 +93,7 @@ export default class epood extends Component {
   };
 
   render() {
+    const { kogus } = this.state;
     let filteredProducts = this.state.products.filter(
       product => product.Kirjeldus.indexOf(this.state.search) !== -1
     );
@@ -96,8 +109,8 @@ export default class epood extends Component {
         </div>
         <div className="tooteidkokku">
           <p>
-            {" "}
-            Produkte in Shop: <Button bsStyle="primary">?</Button>
+            Produkte in Shop:{" "}
+            <Badge class="badge badge-light">{this.state.kogus}</Badge>
           </p>
         </div>
         <Grid fluid>
