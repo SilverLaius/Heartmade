@@ -79,7 +79,8 @@ class Anmelden extends Component {
         data: formData,
         config: { headers: { "Content-Type": "multipart/form-data" } }
       }).then(res => {
-        if (res) {
+        console.log(res);
+        if (res.data) {
           authenticateUser();
         }
       });
