@@ -31,6 +31,8 @@
 .search-box {
   margin: auto;
 }
-.tooteidkokku {
+
+.tooteidkokku,
+.badge {
   text-align: right;
 }

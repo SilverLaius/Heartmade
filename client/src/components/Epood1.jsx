@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import socket from "../SocketManager";
-import { Grid, Row, Col, Thumbnail, Button } from "react-bootstrap";
+import { Grid, Row, Col, Thumbnail, Button, Badge } from "react-bootstrap";
 import "./Epood1.css";
 
 export default class epood extends Component {
@@ -11,7 +11,8 @@ export default class epood extends Component {
       productCount: 0,
       search: "",
       products: [],
-      filteredProducts: []
+      filteredProducts: [],
+      kogus: []
     };
   }
 
@@ -92,6 +93,7 @@ export default class epood extends Component {
   };
 
   render() {
+    const { kogus } = this.state;
     let filteredProducts = this.state.products.filter(
       product => product.Kirjeldus.indexOf(this.state.search) !== -1
     );
@@ -106,7 +108,10 @@ export default class epood extends Component {
           />
         </div>
         <div className="tooteidkokku">
-          <p>Produkte in Shop: {this.state.productCount}</p>
+          <p>
+            Produkte in Shop:{" "}
+            <Badge class="badge badge-light">{this.state.productCount}</Badge>
+          </p>
         </div>
         <Grid fluid>
           <Row>
