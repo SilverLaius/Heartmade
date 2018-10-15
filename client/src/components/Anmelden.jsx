@@ -14,6 +14,7 @@ import {
 import "./Anmelden.css";
 import { onOpenLoginPopup } from "../event-bus.js";
 import GoogleAuthentication from "./GoogleAuthentication";
+import auth from "../Auth";
 
 class Anmelden extends Component {
   constructor(props, context) {
@@ -60,6 +61,7 @@ class Anmelden extends Component {
       googleUser: firstName,
       googleUserAvatar: avatar
     });
+    auth.authenticate();
     this.handleClose();
   };
 
@@ -76,6 +78,10 @@ class Anmelden extends Component {
         url: "/login",
         data: formData,
         config: { headers: { "Content-Type": "multipart/form-data" } }
+      }).then(res => {
+        if (res) {
+          auth.isAuthenticated();
+        }
       });
     });
     this.handleClose();

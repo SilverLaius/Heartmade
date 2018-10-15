@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Startseite from "./components/Startseite";
 import Über from "./components/Über";
 import Buch from "./components/Buch";
@@ -37,7 +37,10 @@ class App extends Component {
           />
           <Route path="/über" component={routeApplicationPart(Über, "Über")} />
           <Route path="/buch" component={routeApplicationPart(Buch, "Buch")} />
-          <Route path="/blog" component={routeApplicationPart(Blog, "Blog")} />
+          <Route
+            path="/blog"
+            component={routeApplicationPart(Blog, "Blog", true)}
+          />
           <Route path="/shop" component={routeApplicationPart(Shop, "Shop")} />
           <Route
             path="/gratis"
