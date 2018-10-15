@@ -28,17 +28,17 @@ class App extends Component {
     );
   }
 
-  authenticate() {
+  authenticate = () => {
     this.setState({
       isAuthenticated: true
     });
-  }
+  };
 
-  signOut() {
+  signOut = () => {
     this.setState({
       isAuthenticated: false
     });
-  }
+  };
 
   render() {
     return (
