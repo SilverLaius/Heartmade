@@ -8,10 +8,12 @@ import {
   FormControl,
   Col,
   ControlLabel,
-  Checkbox
+  Checkbox,
+  Thumbnail
 } from "react-bootstrap";
 import "./Anmelden.css";
 import { onOpenLoginPopup } from "../event-bus.js";
+import GoogleAuthentication from "./GoogleAuthentication";
 
 class Anmelden extends Component {
   constructor(props, context) {
@@ -23,7 +25,9 @@ class Anmelden extends Component {
     this.state = {
       email: "",
       password: "",
-      show: false
+      show: false,
+      googleUser: "",
+      googleUserAvatar: ""
     };
   }
 
@@ -47,6 +51,16 @@ class Anmelden extends Component {
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleGoogleUserLoggedIn = user => {
+    const firstName = user.profileObj.givenName;
+    const avatar = user.profileObj.imageUrl;
+    this.setState({
+      googleUser: firstName,
+      googleUserAvatar: avatar
+    });
+    this.handleClose();
   };
 
   handleSubmit = e => {
@@ -113,6 +127,13 @@ class Anmelden extends Component {
               <FormGroup>
                 <Col smOffset={2} sm={10}>
                   <Button type="submit">Sign in</Button>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col smOffset={2} sm={10}>
+                  <GoogleAuthentication
+                    onUserLoggedIn={this.handleGoogleUserLoggedIn}
+                  />
                 </Col>
               </FormGroup>
             </Form>

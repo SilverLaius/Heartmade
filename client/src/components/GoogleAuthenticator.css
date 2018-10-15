@@ -1,0 +1,8 @@
+.login-button {
+  background: url("../images/google-button.png") no-repeat;
+  background-size: contain;
+  height: 4em;
+  width: 11em;
+  border: none;
+  outline: none;
+}
