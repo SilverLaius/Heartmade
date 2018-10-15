@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Startseite from "./components/Startseite";
 import Über from "./components/Über";
 import Buch from "./components/Buch";
@@ -15,13 +15,40 @@ import Anmelden from "./components/Anmelden";
 import Register from "./components/Register";
 import Statistics from "./components/Statistics";
 import { routeApplicationPart } from "./RouteWrapper";
+import { onAuthenticateUser } from "./event-bus";
 
 class App extends Component {
+  state = {
+    isAuthenticated: false
+  };
+
+  componentDidMount() {
+    this.subscription = onAuthenticateUser(() =>
+      this.setState({ isAuthenticated: true })
+    );
+  }
+
+  authenticate = () => {
+    this.setState({
+      isAuthenticated: true
+    });
+  };
+
+  signOut = () => {
+    this.setState({
+      isAuthenticated: false
+    });
+  };
+
   render() {
     return (
       <Router>
         <div>
-          <Searchbar />
+          <Searchbar
+            onLogin={this.authenticate}
+            onLogOut={this.signOut}
+            auth={this.state.isAuthenticated}
+          />
           <Anmelden />
           <Register />
           <Piltpais />
@@ -37,7 +64,14 @@ class App extends Component {
           />
           <Route path="/über" component={routeApplicationPart(Über, "Über")} />
           <Route path="/buch" component={routeApplicationPart(Buch, "Buch")} />
-          <Route path="/blog" component={routeApplicationPart(Blog, "Blog")} />
+          <Route
+            path="/blog"
+            component={routeApplicationPart(
+              Blog,
+              "Blog",
+              this.state.isAuthenticated
+            )}
+          />
           <Route path="/shop" component={routeApplicationPart(Shop, "Shop")} />
           <Route
             path="/gratis"

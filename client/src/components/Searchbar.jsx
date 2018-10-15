@@ -16,6 +16,19 @@ import "./Searchbar.css";
 //import { Link } from "react-router-dom";
 
 export default class Searchbar extends Component {
+  logInLogOutButton = () => {
+    const button = this.props.auth ? (
+      <NavItem onClick={this.props.onLogOut}>Logout</NavItem>
+    ) : (
+      <NavItem eventKey={1} href="#" onClick={openLoginPopup}>
+        Anmelden
+      </NavItem>
+    );
+    console.log(button);
+
+    return button;
+  };
+
   render() {
     return (
       <Navbar>
@@ -30,9 +43,7 @@ export default class Searchbar extends Component {
             <Button type="submit">Suchen</Button>
           </Navbar.Form>
           <Nav pullRight>
-            <NavItem eventKey={1} href="#" onClick={openLoginPopup}>
-              Anmelden
-            </NavItem>
+            {this.logInLogOutButton()}
             <NavItem eventKey={2} href="#" onClick={openRegisterPopup}>
               Register
             </NavItem>

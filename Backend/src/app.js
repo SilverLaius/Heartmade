@@ -138,8 +138,10 @@ app.post("/login", upload.any(), (req, res) => {
       const hashedPass = passHash.hash(req.body.password, salt);
       if (hashedPass === kasutaja.Parool) {
         console.log("Logged in");
+        res.send(true);
       } else {
         console.log("wrong password");
+        res.send(false);
       }
     }
   });
@@ -159,7 +161,6 @@ app.get("/productcount", (req, res) => {
     "SELECT COUNT(*) as count FROM Tooted JOIN Toodete_pildid ON Tooted.Tootekood = Toodete_pildid.Tootekood;";
   connection.query(productCountQuery, (err, results) => {
     if (err) throw err;
-    console.log(results);
     res.send(results);
   });
 });
