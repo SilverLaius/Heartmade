@@ -6,31 +6,41 @@ import Tabs from "./Tabs";
 export default class Über extends Component {
   render() {
     return (
-      <div>
-        <Grid>
-          <Col xs={12} sm={8} smOffset={2}>
-            <Tabs />
-          </Col>
-        </Grid>
+      <div className="kooskasutus" xmlns="http://www.w3.org/1999/xhtml">
+        <h1>MathML (Pythagoras):</h1>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <mrow>
+            <mrow>
+              <msup>
+                <mi>a</mi>
+                <mn>2</mn>
+              </msup>
+              <mo>+</mo>
+              <msup>
+                <mi>b</mi>
+                <mn>2</mn>
+              </msup>
+            </mrow>
+            <mo>=</mo>
+            <msup>
+              <mi>c</mi>
+              <mn>2</mn>
+            </msup>
+          </mrow>
+        </math>
+        <h1>SVG:</h1>
+        <svg className="kolmnurk" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="3 3 30 28 3 53" />
+        </svg>
+        <div>
+          <Tabs />
+          <Grid>
+            <Col xs={12} sm={8} smOffset={2}>
+              <Tabs />
+            </Col>
+          </Grid>
+        </div>
       </div>
-      /* <div>
-        <Image src="assets/pilt (1).png" className="header-image" />
-        <Grid>
-          <Col xs={12} sm={8} smOffset={2}>
-            <Image
-              src="assets/pilt (5).jpg"
-              className="about-profile-pic"
-              rounded="true"
-            />
-            <h3> Kas sa oled rebane?</h3>
-            <p> Blablablablabla</p>
-            <p> Blablablablabla</p>
-            <p> Blablablablabla</p>
-            <p> Blablablablabla</p>
-            <Tabs />
-          </Col>
-        </Grid>
-      </div>*/
     );
   }
 }
