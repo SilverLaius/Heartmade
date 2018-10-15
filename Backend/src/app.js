@@ -131,16 +131,13 @@ app.post("/login", upload.any(), (req, res) => {
     if (err) throw err;
     const kasutaja = results[0];
     if (kasutaja == null) {
-      console.log("user doesnt exist");
-      res.send("user doesn't exist");
+      res.send(false);
     } else {
       const salt = kasutaja.Salt;
       const hashedPass = passHash.hash(req.body.password, salt);
       if (hashedPass === kasutaja.Parool) {
-        console.log("Logged in");
         res.send(true);
       } else {
-        console.log("wrong password");
         res.send(false);
       }
     }
@@ -193,6 +190,10 @@ app.post("/upload", upload.array("productImage"), (req, res) => {
   }
   res.send();
 });
+
+/*app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+});*/
 
 io.sockets.on("connection", socket => {
   console.log("made socket connection");
