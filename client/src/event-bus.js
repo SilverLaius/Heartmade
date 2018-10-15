@@ -16,3 +16,11 @@ export const openRegisterPopup = () => {
 export const onOpenRegisterPopup = callback => {
   emitter.addListener("open-register-popup", callback);
 };
+
+export const authenticateUser = () => {
+  emitter.emit("user-authenticated");
+};
+
+export const onAuthenticateUser = callback => {
+  emitter.addListener("user-authenticated", callback);
+};

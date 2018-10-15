@@ -12,20 +12,18 @@ import {
 } from "react-bootstrap";
 import { openLoginPopup, openRegisterPopup } from "../event-bus.js";
 import "./Searchbar.css";
-import auth from "../Auth";
 
 //import { Link } from "react-router-dom";
 
 export default class Searchbar extends Component {
-  logInLogOutButton = auth.isAuthenticated ? (
-    <NavItem onClick={auth.signOut}>Logout</NavItem>
+  logInLogOutButton = this.props.auth ? (
+    <NavItem onClick={this.props.onLogOut}>Logout</NavItem>
   ) : (
     <NavItem eventKey={1} href="#" onClick={openLoginPopup}>
       Anmelden
     </NavItem>
   );
   render() {
-    console.log(auth.isAuthenticated);
     return (
       <Navbar>
         <Navbar.Header>

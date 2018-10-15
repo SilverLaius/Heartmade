@@ -15,13 +15,40 @@ import Anmelden from "./components/Anmelden";
 import Register from "./components/Register";
 import Statistics from "./components/Statistics";
 import { routeApplicationPart } from "./RouteWrapper";
+import { onAuthenticateUser } from "./event-bus";
 
 class App extends Component {
+  state = {
+    isAuthenticated: false
+  };
+
+  componentDidMount() {
+    this.subscription = onAuthenticateUser(() =>
+      this.setState({ isAuthenticated: true })
+    );
+  }
+
+  authenticate() {
+    this.setState({
+      isAuthenticated: true
+    });
+  }
+
+  signOut() {
+    this.setState({
+      isAuthenticated: false
+    });
+  }
+
   render() {
     return (
       <Router>
         <div>
-          <Searchbar />
+          <Searchbar
+            onLogin={this.authenticate}
+            onLogOut={this.signOut}
+            auth={this.state.isAuthenticated}
+          />
           <Anmelden />
           <Register />
           <Piltpais />
@@ -39,7 +66,11 @@ class App extends Component {
           <Route path="/buch" component={routeApplicationPart(Buch, "Buch")} />
           <Route
             path="/blog"
-            component={routeApplicationPart(Blog, "Blog", true)}
+            component={routeApplicationPart(
+              Blog,
+              "Blog",
+              this.state.isAuthenticated
+            )}
           />
           <Route path="/shop" component={routeApplicationPart(Shop, "Shop")} />
           <Route
