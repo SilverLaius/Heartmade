@@ -24,12 +24,11 @@ export default class Searchbar extends Component {
         Anmelden
       </NavItem>
     );
-    console.log(button);
-
     return button;
   };
 
   render() {
+    const button = this.logInLogOutButton();
     return (
       <Navbar>
         <Navbar.Header>
@@ -43,7 +42,7 @@ export default class Searchbar extends Component {
             <Button type="submit">Suchen</Button>
           </Navbar.Form>
           <Nav pullRight>
-            {this.logInLogOutButton()}
+            {button}
             <NavItem eventKey={2} href="#" onClick={openRegisterPopup}>
               Register
             </NavItem>

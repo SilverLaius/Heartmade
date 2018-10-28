@@ -69,7 +69,8 @@ class App extends Component {
             component={routeApplicationPart(
               Blog,
               "Blog",
-              this.state.isAuthenticated
+              this.state.isAuthenticated,
+              "/"
             )}
           />
           <Route path="/shop" component={routeApplicationPart(Shop, "Shop")} />

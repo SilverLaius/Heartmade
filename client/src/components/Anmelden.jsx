@@ -79,12 +79,12 @@ class Anmelden extends Component {
         data: formData,
         config: { headers: { "Content-Type": "multipart/form-data" } }
       }).then(res => {
-        if (res) {
+        if (res.data) {
           authenticateUser();
+          this.handleClose();
         }
       });
     });
-    this.handleClose();
   };
 
   render() {

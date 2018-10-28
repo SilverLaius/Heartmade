@@ -129,10 +129,11 @@ app.post("/login", upload.any(), (req, res) => {
   checkQuery = `SELECT Salt, Parool, LiikID, StaatusID FROM Kasutajad WHERE E_post = '${email}'`;
   connection.query(checkQuery, (err, results) => {
     if (err) throw err;
+
     const kasutaja = results[0];
     if (kasutaja == null) {
       console.log("user doesnt exist");
-      res.send("user doesn't exist");
+      res.send(false);
     } else {
       const salt = kasutaja.Salt;
       const hashedPass = passHash.hash(req.body.password, salt);
