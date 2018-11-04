@@ -11,6 +11,7 @@
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
     "react-google-login": "^3.2.1",
+    "react-localize-redux": "^3.5.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
     "react-tooltip": "^3.8.4",
