@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import socket from "../SocketManager";
 import { Grid, Row, Col, Thumbnail, Button, Badge } from "react-bootstrap";
 import "./Epood1.css";
+import { Translate } from "react-localize-redux";
 
 export default class epood extends Component {
   constructor() {
@@ -70,28 +71,6 @@ export default class epood extends Component {
     });
   };
 
-  getRowsOfProducts = products => {
-    let rowsOfProducts = [];
-    for (let i = 0; i < products.length; i += 3) {
-      const productsInRow = products.slice(i, i + 3);
-      let columnsInRow = [];
-      for (let j = 0; j < productsInRow.length; j++) {
-        columnsInRow.push(
-          <Thumbnail src={"/image/" + productsInRow[j].Pildid[0]} alt="">
-            <h3>{productsInRow[j].Kirjeldus}</h3>
-            <p>
-              <Button bsStyle="primary">Info</Button>
-              &nbsp;
-              <Button bsStyle="default">In den Einkaufswagen</Button>
-            </p>
-          </Thumbnail>
-        );
-      }
-      rowsOfProducts.push(columnsInRow);
-    }
-    return rowsOfProducts;
-  };
-
   render() {
     const { kogus } = this.state;
     let filteredProducts = this.state.products.filter(
@@ -109,7 +88,7 @@ export default class epood extends Component {
         </div>
         <div className="tooteidkokku">
           <p>
-            Produkte in Shop:{" "}
+            <Translate id="mainpage.productscount" />{" "}
             <Badge class="badge badge-light">{this.state.productCount}</Badge>
           </p>
         </div>
@@ -120,9 +99,13 @@ export default class epood extends Component {
                 <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
                   <h3>{product.Kirjeldus}</h3>
                   <p>
-                    <Button bsStyle="primary">Info</Button>
+                    <Button bsStyle="primary">
+                      <Translate id="mainpage.info" />
+                    </Button>
                     &nbsp;
-                    <Button bsStyle="default">In den Einkaufswagen</Button>
+                    <Button bsStyle="default">
+                      <Translate id="mainpage.addproduct" />
+                    </Button>
                   </p>
                 </Thumbnail>
               </Col>

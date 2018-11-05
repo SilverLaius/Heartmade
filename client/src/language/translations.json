@@ -1,0 +1,40 @@
+{
+  "close": ["Schließen", "Close"],
+  "menu": {
+    "main": ["Startseite", "Main Page"],
+    "about": ["Über", "About"],
+    "book": ["Buch", "Book"],
+    "blog": ["Blog", "Blog"],
+    "shop": ["Shop", "Shop"],
+    "statistics": ["Statistiken", "Statistics"],
+    "free": ["Gratis", "Free Stuff"],
+    "courses": ["Häkelkurs", "Courses"]
+  },
+  "searchbar": {
+    "password": ["Passwort", "Password"],
+    "email": ["Email", "Email"],
+    "search": {
+      "placeholder": ["Suche", "Search"],
+      "button": ["Suchen", "Search"]
+    },
+    "login": {
+      "title": ["Anmelden", "Login"],
+      "button": ["Anmelden", "Login"],
+      "signin": ["Einloggen", "Sign in"],
+      "google": ["Anmeldung mit Google", "Sign in with google"],
+      "remember": ["Merken", "Remember me"]
+    },
+    "register": {
+      "title": ["Registrieren", "Register"],
+      "button": ["Registrieren", "Register"],
+      "first": ["Vorname", "First Name"],
+      "last": ["Nachname", "Last Name"]
+    },
+    "cart": ["Einkaufen", "Cart"]
+  },
+  "mainpage": {
+    "productscount": ["Produkte in Shop:", "Products in shop:"],
+    "info": ["Info", "Info"],
+    "addproduct": ["In den Einkaufswagen", "Add to Cart"]
+  }
+}

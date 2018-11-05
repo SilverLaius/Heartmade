@@ -12,7 +12,8 @@ import {
 } from "react-bootstrap";
 import { openLoginPopup, openRegisterPopup } from "../event-bus.js";
 import "./Searchbar.css";
-
+import LanguageButton from "./LanguageButton";
+import { Translate } from "react-localize-redux";
 //import { Link } from "react-router-dom";
 
 export default class Searchbar extends Component {
@@ -21,15 +22,14 @@ export default class Searchbar extends Component {
       <NavItem onClick={this.props.onLogOut}>Logout</NavItem>
     ) : (
       <NavItem eventKey={1} href="#" onClick={openLoginPopup}>
-        Anmelden
+        <Translate id="searchbar.login.button" />
       </NavItem>
     );
-    console.log(button);
-
     return button;
   };
 
   render() {
+    const button = this.logInLogOutButton();
     return (
       <Navbar>
         <Navbar.Header>
@@ -38,17 +38,30 @@ export default class Searchbar extends Component {
         <Navbar.Collapse>
           <Navbar.Form pullLeft>
             <FormGroup>
-              <FormControl type="text" placeholder="Suche" />
+              <Translate>
+                {({ translate }) => (
+                  <FormControl
+                    type="text"
+                    placeholder={translate("searchbar.search.placeholder")}
+                  />
+                )}
+              </Translate>
             </FormGroup>{" "}
-            <Button type="submit">Suchen</Button>
+            <Button type="submit">
+              <Translate id="searchbar.search.button" />
+            </Button>
           </Navbar.Form>
           <Nav pullRight>
-            {this.logInLogOutButton()}
+            {button}
             <NavItem eventKey={2} href="#" onClick={openRegisterPopup}>
-              Register
+              <Translate id="searchbar.register.button" />
             </NavItem>
             <NavItem eventKey={3} href="#">
-              Einkaufen <Badge class="badge badge-light">0</Badge>
+              <Translate id="searchbar.cart" />{" "}
+              <Badge class="badge badge-light">0</Badge>
+            </NavItem>
+            <NavItem eventKey={4} href="#">
+              <LanguageButton />
             </NavItem>
           </Nav>
         </Navbar.Collapse>

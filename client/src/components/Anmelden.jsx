@@ -15,6 +15,7 @@ import "./Anmelden.css";
 import { onOpenLoginPopup } from "../event-bus.js";
 import GoogleAuthentication from "./GoogleAuthentication";
 import { authenticateUser } from "../event-bus";
+import { Translate } from "react-localize-redux";
 
 class Anmelden extends Component {
   constructor(props, context) {
@@ -79,76 +80,83 @@ class Anmelden extends Component {
         data: formData,
         config: { headers: { "Content-Type": "multipart/form-data" } }
       }).then(res => {
-        console.log(res);
         if (res.data) {
           authenticateUser();
+          this.handleClose();
         }
       });
     });
-    this.handleClose();
   };
 
   render() {
     return (
       <div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Anmelden</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form horizontal onSubmit={this.handleSubmit}>
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Email
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    onChange={this.handleInputChange}
-                  />
-                </Col>
-              </FormGroup>
+        <Translate>
+          {({ translate }) => (
+            <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>{translate("searchbar.login.title")}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form horizontal onSubmit={this.handleSubmit}>
+                  <FormGroup controlId="formHorizontalEmail">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      {translate("searchbar.email")}
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="email"
+                        placeholder={translate("searchbar.email")}
+                        name="email"
+                        onChange={this.handleInputChange}
+                      />
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Password
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={this.handleInputChange}
-                  />
-                </Col>
-              </FormGroup>
+                  <FormGroup controlId="formHorizontalPassword">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      <Translate id="searchbar.password" />
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="password"
+                        placeholder={translate("searchbar.password")}
+                        name="password"
+                        onChange={this.handleInputChange}
+                      />
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
-                  <Checkbox>Remember me</Checkbox>
-                </Col>
-              </FormGroup>
+                  <FormGroup>
+                    <Col smOffset={2} sm={10}>
+                      <Checkbox>
+                        {translate("searchbar.login.remember")}
+                      </Checkbox>
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
-                  <Button type="submit">Sign in</Button>
-                </Col>
-              </FormGroup>
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
-                  <GoogleAuthentication
-                    onUserLoggedIn={this.handleGoogleUserLoggedIn}
-                  />
-                </Col>
-              </FormGroup>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+                  <FormGroup>
+                    <Col smOffset={2} sm={10}>
+                      <Button type="submit">
+                        {translate("searchbar.login.button")}
+                      </Button>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col smOffset={2} sm={10}>
+                      <GoogleAuthentication
+                        onUserLoggedIn={this.handleGoogleUserLoggedIn}
+                      />
+                    </Col>
+                  </FormGroup>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.handleClose}>{translate("close")}</Button>
+              </Modal.Footer>
+            </Modal>
+          )}
+        </Translate>
       </div>
     );
   }
