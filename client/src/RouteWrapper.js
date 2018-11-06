@@ -30,7 +30,7 @@ export const routeApplicationPart = (
           formData.append("page", this.state.page);
           axios({
             method: "post",
-            url: "/statistics",
+            url: "/stats",
             data: formData,
             config: { headers: { "Content-Type": "multipart/form-data" } }
           });

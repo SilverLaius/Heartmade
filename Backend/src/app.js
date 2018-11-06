@@ -20,7 +20,7 @@ server.listen(3001, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-//app.use(express.static(`${__dirname}/../../client/build`));
+app.use(express.static(`${__dirname}/../../client/build`));
 
 // configuring multer
 const storage = multer.diskStorage({
@@ -58,7 +58,7 @@ connection.connect(err => {
   console.log("Connected!");
 });
 
-app.post("/statistics", upload.any(), (req, res) => {
+app.post("/stats", upload.any(), (req, res) => {
   const page = req.body.page;
   const date = req.body.date;
   const ip = (
@@ -77,7 +77,7 @@ app.post("/statistics", upload.any(), (req, res) => {
   res.end();
 });
 
-app.get("/statistics", (req, res) => {
+app.get("/stats", (req, res) => {
   const popKülastaajaQuery =
     "SELECT ip, COUNT(*) AS magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1;";
   const popLehtQuery =
@@ -191,9 +191,9 @@ app.post("/upload", upload.array("productImage"), (req, res) => {
   res.send();
 });
 
-/*app.get("*", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../client/build/index.html"));
-});*/
+});
 
 io.sockets.on("connection", socket => {
   console.log("made socket connection");
