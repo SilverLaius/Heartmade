@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import axios from "axios";
 import { openLoginPopup } from "./event-bus";
 
 export const routeApplicationPart = (
   WrappedComponent,
   pageName,
-  isAuthenticated = true
+  isAuthenticated = true,
+  redirect
 ) => {
   class ApplicationStepWrapper extends Component {
     constructor(props, context) {
@@ -39,12 +41,11 @@ export const routeApplicationPart = (
     }
 
     render() {
-      if (isAuthenticated) {
-        return <WrappedComponent />;
-      } else {
+      if (!isAuthenticated) {
         openLoginPopup();
         return null;
       }
+      return <WrappedComponent />;
     }
   }
   return ApplicationStepWrapper;

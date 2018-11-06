@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import "./Register.css";
 import { onOpenRegisterPopup } from "../event-bus.js";
+import { Translate } from "react-localize-redux";
 
 class Register extends Component {
   constructor(props, context) {
@@ -92,79 +93,89 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Register</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form horizontal onSubmit={this.handleSubmit}>
-              <FormGroup controlId="formHorizontalFirstName">
-                <Col componentClass={ControlLabel} sm={2}>
-                  First Name
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="text"
-                    placeholder="Firstname"
-                    name="firstname"
-                    onChange={this.handleInputChange}
-                  />
-                </Col>
-              </FormGroup>
+        <Translate>
+          {({ translate }) => (
+            <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>
+                  <Translate id="searchbar.register.title" />
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form horizontal onSubmit={this.handleSubmit}>
+                  <FormGroup controlId="formHorizontalFirstName">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      {translate("searchbar.register.first")}
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={translate("searchbar.register.first")}
+                        name="firstname"
+                        onChange={this.handleInputChange}
+                      />
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup controlId="formHorizontalLastName">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Last Name
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="text"
-                    placeholder="Lastname"
-                    name="lastname"
-                    onChange={this.handleInputChange}
-                  />
-                </Col>
-              </FormGroup>
+                  <FormGroup controlId="formHorizontalLastName">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      {translate("searchbar.register.last")}
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="text"
+                        placeholder={translate("searchbar.register.last")}
+                        name="lastname"
+                        onChange={this.handleInputChange}
+                      />
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Email
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    onChange={this.handleInputChange}
-                  />
-                </Col>
-              </FormGroup>
+                  <FormGroup controlId="formHorizontalEmail">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      {translate("searchbar.email")}
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="email"
+                        placeholder={translate("searchbar.email")}
+                        name="email"
+                        onChange={this.handleInputChange}
+                      />
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Password
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={this.handleInputChange}
-                  />
-                </Col>
-              </FormGroup>
+                  <FormGroup controlId="formHorizontalPassword">
+                    <Col componentClass={ControlLabel} sm={2}>
+                      <Translate id="searchbar.password" />
+                    </Col>
+                    <Col sm={10}>
+                      <FormControl
+                        type="password"
+                        placeholder={translate("searchbar.password")}
+                        name="password"
+                        onChange={this.handleInputChange}
+                      />
+                    </Col>
+                  </FormGroup>
 
-              <FormGroup>
-                <Col smOffset={2} sm={10}>
-                  <Button type="submit">Register</Button>
-                </Col>
-              </FormGroup>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+                  <FormGroup>
+                    <Col smOffset={2} sm={10}>
+                      <Button type="submit">
+                        {translate("searchbar.register.button")}
+                      </Button>
+                    </Col>
+                  </FormGroup>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.handleClose}>
+                  <Translate id="close" />
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          )}
+        </Translate>
       </div>
     );
   }

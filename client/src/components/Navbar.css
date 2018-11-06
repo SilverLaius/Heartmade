@@ -62,6 +62,7 @@
 }
 
 .toolbar__navigation-items {
+  white-space: nowrap;
   width: 50%;
   margin: 0 auto;
 }

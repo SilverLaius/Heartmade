@@ -12,6 +12,7 @@ const config = require("../config/config");
 const io = require("socket.io").listen(server);
 const passHash = require("./hashing");
 var UAParser = require("ua-parser-js");
+const nodemailer = require("nodemailer");
 
 server.listen(3001, () => {
   console.log("Listening on port 3001");
@@ -101,6 +102,16 @@ app.get("/stats", (req, res) => {
   );
 });
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "heartmade.dev@gmail.com",
+    pass: config.mail.password
+  }
+});
+
 app.post("/register", upload.any(), (req, res) => {
   const email = req.body.email;
   const checkQuery = `SELECT KasutajaID FROM Kasutajad WHERE E_post = '${email}'`;
@@ -122,6 +133,20 @@ app.post("/register", upload.any(), (req, res) => {
       res.send("email exists");
     }
   });
+
+  const mailOptions = {
+    from: '"Heartmade" <heartmade.dev@gmail.com>',
+    to: email,
+    subject: "Registration to Heartmade",
+    text: "You have successfully registered to kertupertu.de."
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log("Message sent: %s", info.messageId);
+  });
 });
 
 app.post("/login", upload.any(), (req, res) => {
@@ -129,6 +154,7 @@ app.post("/login", upload.any(), (req, res) => {
   checkQuery = `SELECT Salt, Parool, LiikID, StaatusID FROM Kasutajad WHERE E_post = '${email}'`;
   connection.query(checkQuery, (err, results) => {
     if (err) throw err;
+
     const kasutaja = results[0];
     if (kasutaja == null) {
       res.send(false);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { Translate } from "react-localize-redux";
 
 class Navbar extends Component {
   state = {
@@ -38,28 +39,44 @@ class Navbar extends Component {
           <div className="toolbar__navigation-items">
             <ul>
               <li>
-                <Link to="/">Startseite</Link>
+                <Link to="/">
+                  <Translate id="menu.main" />
+                </Link>
               </li>
               <li>
-                <Link to="/über">Über</Link>
+                <Link to="/über">
+                  <Translate id="menu.about" />
+                </Link>
               </li>
               <li>
-                <Link to="/buch">Buch</Link>
+                <Link to="/buch">
+                  <Translate id="menu.book" />
+                </Link>
               </li>
               <li>
-                <Link to="/blog">Blog</Link>
+                <Link to="/blog">
+                  <Translate id="menu.blog" />
+                </Link>
               </li>
               <li>
-                <Link to="/shop">Shop</Link>
+                <Link to="/shop">
+                  <Translate id="menu.shop" />
+                </Link>
               </li>
               <li>
-                <Link to="/statistics">Statistics</Link>
+                <Link to="/statistics">
+                  <Translate id="menu.statistics" />
+                </Link>
               </li>
               <li>
-                <Link to="/gratis">Gratis</Link>
+                <Link to="/gratis">
+                  <Translate id="menu.free" />
+                </Link>
               </li>
               <li>
-                <Link to="/häkelkurs">Häkelkurs</Link>
+                <Link to="/häkelkurs">
+                  <Translate id="menu.courses" />
+                </Link>
               </li>
             </ul>
           </div>
@@ -91,28 +108,44 @@ class Navbar extends Component {
             <div className="toolbar__dropdown-items">
               <ul>
                 <li>
-                  <Link to="/">Startseite</Link>
+                  <Link to="/">
+                    <Translate id="menu.main" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/über">Über</Link>
+                  <Link to="/über">
+                    <Translate id="menu.about" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/buch">Buch</Link>
+                  <Link to="/buch">
+                    <Translate id="menu.book" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/blog">
+                    <Translate id="menu.blog" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/shop">Shop</Link>
+                  <Link to="/shop">
+                    <Translate id="menu.shop" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/statistics">Statistics</Link>
+                  <Link to="/statistics">
+                    <Translate id="menu.statistics" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/gratis">Gratis</Link>
+                  <Link to="/gratis">
+                    <Translate id="menu.free" />
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/häkelkurs">Häkelkurs</Link>
+                  <Link to="/häkelkurs">
+                    <Translate id="menu.courses" />
+                  </Link>
                 </li>
               </ul>
             </div>
