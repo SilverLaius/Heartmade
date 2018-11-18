@@ -1,6 +1,5 @@
-.notification {
-  color: #376b06;
-  background-color: rgba(75, 181, 67, 0.8);
+.product {
+  background-color: #efefef;
   margin: 10;
   height: auto;
   min-height: 4em;
@@ -12,20 +11,7 @@
   border-radius: 0.4em;
 }
 
-.notification:active {
-  height: 4em;
-}
-
-.invisible {
-  display: none;
-}
-
-.error {
-  background-color: #b33a3a;
-  color: #630101;
-}
-
-.notification-button {
+.button {
   float: right;
   background: transparent;
   color: black;

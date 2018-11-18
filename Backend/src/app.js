@@ -220,6 +220,15 @@ app.post("/upload", upload.array("productImage"), (req, res) => {
   res.send();
 });
 
+app.get("/remove/:id", (req, res) => {
+  const productID = req.params.id;
+  const removeQuery = `DELETE FROM Tooted WHERE Tootekood = ${productID}`;
+  connection.query(removeQuery, (err, results) => {
+    if (err) throw err;
+  });
+  res.send();
+});
+
 io.sockets.on("connection", socket => {
   console.log("made socket connection");
 

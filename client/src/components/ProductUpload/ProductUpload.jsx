@@ -4,6 +4,7 @@ import ReactTooltip from "react-tooltip";
 import socket from "../../SocketManager";
 import "./ProductUpload.css";
 import NotificationBox from "../NotificationBox/NotificationBox";
+import ProductList from "../ProductList";
 
 /**
  * https://academind.com/learn/react/snippets/image-upload/
@@ -20,7 +21,9 @@ class ProductUpload extends Component {
       productType: 1,
       productStatus: 1,
       productImages: [],
-      uploadingStatus: "notUploaded"
+      notificationText: "Product uploaded!",
+      uploadingStatus: "notUploaded",
+      errorText: []
     };
   }
 
@@ -54,6 +57,25 @@ class ProductUpload extends Component {
         productID: Math.abs(generatedID)
       },
       () => {
+        if (!this.formIsValid()) {
+          document.getElementById("upload-form").reset();
+          let errorMessage = "";
+          for (let i = 0; i < this.state.errorText.length; i++) {
+            errorMessage += "\n" + this.state.errorText[i];
+          }
+
+          this.setState({
+            notificationText: errorMessage,
+            uploadingStatus: "error",
+            errorText: []
+          });
+          return;
+        } else {
+          this.setState({
+            notificationText: "Product successfully uploaded!",
+            uploadingStatus: "notUploaded"
+          });
+        }
         formData.append("productID", this.state.productID);
         formData.append("productName", this.state.productName);
         formData.append("productPrice", this.state.productPrice);
@@ -63,7 +85,6 @@ class ProductUpload extends Component {
         for (let i = 0; i < this.state.productImages.length; i++) {
           formData.append("productImage", this.state.productImages[i]);
         }
-
         axios({
           method: "post",
           url: "/upload",
@@ -83,6 +104,37 @@ class ProductUpload extends Component {
     document.getElementById("upload-form").reset();
   };
 
+  formIsValid = () => {
+    if (this.state.productName.length === 0) {
+      this.state.errorText.push("Please enter a name for the product!");
+    }
+    if (this.state.productPrice <= 0) {
+      this.state.errorText.push(
+        "Please enter a positive floating point number for the price of the item!"
+      );
+    }
+    if (this.state.productImages.length === 0) {
+      this.state.errorText.push(
+        "Please add an illustrative image for the product!"
+      );
+    } else {
+      for (let i = 0; i < this.state.productImages.length; i++) {
+        if (
+          this.state.productImages[i].type !== "image/png" &&
+          this.state.productImages[i].type !== "image/jpeg"
+        ) {
+          this.state.errorText.push(
+            "The uploaded file has to be a png or jpeg image!"
+          );
+        }
+      }
+    }
+    if (this.state.errorText.length > 0) {
+      return false;
+    }
+    return true;
+  };
+
   handleChangeUploadStatus = () => {
     const newStatus =
       this.state.uploadingStatus === "notUploaded" ? "uploaded" : "notUploaded";
@@ -95,7 +147,7 @@ class ProductUpload extends Component {
     return (
       <div>
         <NotificationBox
-          text="Product uploaded!"
+          text={this.state.notificationText}
           uploadingStatus={this.state.uploadingStatus}
           buttonClick={this.handleChangeUploadStatus}
         />
@@ -146,6 +198,7 @@ class ProductUpload extends Component {
 
           <button>Submit!</button>
         </form>
+        <ProductList />
       </div>
     );
   }
