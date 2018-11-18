@@ -21,7 +21,7 @@ server.listen(3001, () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-//app.use(express.static(`${__dirname}/../../client/build`));
+app.use(express.static(`${__dirname}/../../client/build`));
 
 // configuring multer
 const storage = multer.diskStorage({
@@ -59,7 +59,7 @@ connection.connect(err => {
   console.log("Connected!");
 });
 
-app.post("/statistics", upload.any(), (req, res) => {
+app.post("/stats", upload.any(), (req, res) => {
   const page = req.body.page;
   const date = req.body.date;
   const ip = (
@@ -78,7 +78,7 @@ app.post("/statistics", upload.any(), (req, res) => {
   res.end();
 });
 
-app.get("/statistics", (req, res) => {
+app.get("/stats", (req, res) => {
   const popKülastaajaQuery =
     "SELECT ip, COUNT(*) AS magnitude FROM Statistika GROUP BY ip ORDER BY magnitude DESC LIMIT 1;";
   const popLehtQuery =
@@ -157,16 +157,13 @@ app.post("/login", upload.any(), (req, res) => {
 
     const kasutaja = results[0];
     if (kasutaja == null) {
-      console.log("user doesnt exist");
       res.send(false);
     } else {
       const salt = kasutaja.Salt;
       const hashedPass = passHash.hash(req.body.password, salt);
       if (hashedPass === kasutaja.Parool) {
-        console.log("Logged in");
         res.send(true);
       } else {
-        console.log("wrong password");
         res.send(false);
       }
     }
@@ -227,6 +224,10 @@ app.get("/remove/:id", (req, res) => {
     if (err) throw err;
   });
   res.send();
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
 });
 
 io.sockets.on("connection", socket => {
