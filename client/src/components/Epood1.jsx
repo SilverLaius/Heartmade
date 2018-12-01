@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import socket from "../SocketManager";
 import { Grid, Row, Col, Thumbnail, Button, Badge } from "react-bootstrap";
 import "./Epood1.css";
+import "./Tooteinfo";
 import { Translate } from "react-localize-redux";
 
 export default class epood extends Component {
@@ -99,7 +100,11 @@ export default class epood extends Component {
                 <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
                   <h3>{product.Kirjeldus}</h3>
                   <p>
-                    <Button className="tootenupp" bsStyle="sm">
+                    <Button
+                      className="tootenupp"
+                      bsStyle="sm"
+                      href="/produktinfo"
+                    >
                       <Translate id="mainpage.info" />
                     </Button>
                     &nbsp;

@@ -1,0 +1,18 @@
+.productinfokonteiner {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ppicture {
+  max-width: 350px;
+  margin-top: 2em;
+}
+.hind {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.col {
+  font-size: 1em;
+}

@@ -18,12 +18,14 @@ export default class Footers extends React.Component {
 
     this.state = {
       FAQShow: false,
-      ZahlungShow: false
+      ZahlungShow: false,
+      VersandShow: false
     };
   }
   render() {
     let FAQClose = () => this.setState({ FAQShow: false });
     let ZahlungClose = () => this.setState({ ZahlungShow: false });
+    let VersandClose = () => this.setState({ VersandShow: false });
     return (
       <div>
         <div className="footer-section">
@@ -51,12 +53,26 @@ export default class Footers extends React.Component {
                       >
                         Zahlung
                       </Button>
-                      <FAQ show={this.state.FAQShow} onHide={FAQClose} />
-                      <Zahlung
-                        show={this.state.ZahlungShow}
-                        onHide={ZahlungClose}
-                      />
                     </li>
+                    <FAQ show={this.state.FAQShow} onHide={FAQClose} />
+                    <Zahlung
+                      show={this.state.ZahlungShow}
+                      onHide={ZahlungClose}
+                    />
+
+                    <li>
+                      <Button
+                        bsStyle="link"
+                        bsSize="sm"
+                        onClick={() => this.setState({ VersandShow: true })}
+                      >
+                        Versand
+                      </Button>
+                    </li>
+                    <Versand
+                      show={this.state.VersandShow}
+                      onHide={VersandClose}
+                    />
                     <li>
                       <Button bsStyle="link" bsSize="sm" href="/statistics">
                         <Translate id="menu.statistics" />
@@ -70,7 +86,7 @@ export default class Footers extends React.Component {
                 <h2>Letzte Nachrichten</h2>
                 <hr />
                 <p className="footer-text">
-                  Folge uns auf: <br />
+                  Uns kann man folgen auch: <br />
                   <a
                     className="footerlink"
                     href="https://www.facebook.com/KertupertuHeartmade/"
@@ -207,6 +223,55 @@ class Zahlung extends React.Component {
             das von dir genutzte PayPal-Konto. Ob der Betrag auf deinem
             PayPal-Konto hinterlegt wird oder wieder auf dein Bankkonto
             zurückgebucht wird, kannst du selbst bei PayPal festlegen.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+}
+
+class Versand extends React.Component {
+  render() {
+    return (
+      <Modal
+        {...this.props}
+        bsSize="large"
+        aria-labelledby="contained-modal-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-lg">Versand</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Wir versenden deine Bestellung mit DHL oder Hermes. </p>
+          <h6 className="modalh6"> Wann kommt meine Bestellung an?</h6>
+          <p className="modalbody">
+            Sobald ein Paket versendet wird, erhältst eine Versandbestätigung
+            per E-Mail. Mit der Sendungsnummer darin kannst du jederzeit den
+            Sendungsverlauf verfolgen. <br />
+            <br />
+            Standard Versanddauer: 4-6 Werktage (montags-samstags)
+            <br />
+            Express Versanddauer: 1-2 Werktage (montags-samstags) <br />
+            <br />
+            Wann du voraussichtlich mit deinem Paket rechnen kannst, siehst du
+            auch beim Abschluss deiner Bestellung unter „Versandoption”.
+          </p>
+          <h6 className="modalh6">Muss ich etwas bezahlen?</h6>
+          <p className="modalbody">
+            Standardversand und Rückversand sind immer kostenfrei.
+            <br />
+            Express-Lieferung kannst du für 5,90 € auswählen.
+          </p>
+          <h6 className="modalh6">
+            Lieferung an eine DHL Packstation oder einen Hermes PaketShop
+          </h6>
+          <p className="modalbody">
+            Gerne kannst du auch Packstationen oder PaketShops als Zustellorte
+            auswählen. Weitere Informationen dazu findest du auf unseren
+            Hilfeseiten zur Packstation und zum Hermes PaketShop.
           </p>
         </Modal.Body>
         <Modal.Footer>

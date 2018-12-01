@@ -14,11 +14,13 @@ import Häkelkurs from "./components/Häkelkurs";
 import Anmelden from "./components/Anmelden";
 import Register from "./components/Register";
 import Statistics from "./components/Statistics";
+import Produktinfo from "./components/Tooteinfo";
 import { routeApplicationPart } from "./RouteWrapper";
 import { onAuthenticateUser } from "./event-bus";
 import { LocalizeProvider } from "react-localize-redux";
 import globalTranslations from "./language/translations.json";
 import ReactDOMServer from "react-dom/server";
+import Productinfo from "./components/Tooteinfo";
 
 class App extends Component {
   state = {
@@ -109,7 +111,11 @@ class App extends Component {
             />
             <Route
               path="/statistics"
-              //component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
+              component={routeApplicationPart(Statistics, "Statistics")}
+            />
+            <Route
+              path="/produktinfo"
+              component={routeApplicationPart(Productinfo, "Productinfo")}
             />
             <Footer />
           </div>

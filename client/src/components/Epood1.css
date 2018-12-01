@@ -47,7 +47,13 @@
 .tooteidkokku {
   text-align: center;
 }
+.btn-sm.tootenupp {
+  background-color: #add8e6;
+  color: #666666;
+  text-shadow: 0.5px 0.5px #ebf6f9;
+}
 
 .btn-sm.tootenupp:hover {
   background-color: #add8e6;
+  color: white;
 }
