@@ -4,6 +4,7 @@ import Über from "./components/Über";
 import Buch from "./components/Buch";
 import Navbar from "./components/Navbar";
 import Searchbar from "./components/Searchbar";
+import Footer from "./components/Footer";
 import Startseite from "./components/Startseite";
 import Piltpais from "./components/Piltpais";
 import Blog from "./components/Blog";
@@ -106,6 +107,7 @@ class App extends Component {
               path="/häkelkurs"
               component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
             />
+            <Footer />
           </div>
         </Router>
       </LocalizeProvider>
