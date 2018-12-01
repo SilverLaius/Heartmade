@@ -86,10 +86,10 @@ export default class epood extends Component {
             onChange={this.handleInputChange}
           />
         </div>
-        <div className="tooteidkokku">
-          <p>
+        <div>
+          <p className="tooteidkokku">
             <Translate id="mainpage.productscount" />{" "}
-            <Badge class="badge badge-light">{this.state.productCount}</Badge>
+            <Badge>{this.state.productCount}</Badge>
           </p>
         </div>
         <Grid fluid>
@@ -99,11 +99,11 @@ export default class epood extends Component {
                 <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
                   <h3>{product.Kirjeldus}</h3>
                   <p>
-                    <Button bsStyle="primary">
+                    <Button bsStyle="sm">
                       <Translate id="mainpage.info" />
                     </Button>
                     &nbsp;
-                    <Button bsStyle="default">
+                    <Button bsStyle="sm">
                       <Translate id="mainpage.addproduct" />
                     </Button>
                   </p>

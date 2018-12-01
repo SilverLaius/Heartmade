@@ -26,18 +26,3 @@ export default class piltpäis extends Component {
     );
   }
 }
-
-/*  <Carousel>
-        <Carousel.Item>
-          <img src={carouselImg} />
-          <Carousel.Caption />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={carouselImg} />
-          <Carousel.Caption />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={carouselImg} />
-          <Carousel.Caption />
-        </Carousel.Item>
-      </Carousel> */

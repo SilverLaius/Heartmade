@@ -31,7 +31,7 @@ export default class Searchbar extends Component {
   render() {
     const button = this.logInLogOutButton();
     return (
-      <Navbar>
+      <Navbar className="searchbar">
         <Navbar.Header>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -51,7 +51,7 @@ export default class Searchbar extends Component {
               <Translate id="searchbar.search.button" />
             </Button>
           </Navbar.Form>
-          <Nav pullRight>
+          <Nav className="searchbarbutton" pullRight>
             {button}
             <NavItem eventKey={2} href="#" onClick={openRegisterPopup}>
               <Translate id="searchbar.register.button" />

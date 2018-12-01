@@ -1,26 +1,6 @@
-/*.carousel-fade .carousel-item {
-  display: block;
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.75s ease-in-out;
-}
-.carousel-fade .carousel-item.active {
-  opacity: 1;
-}
-
-.carousel,
-.carousel-item {
-  width: 115rem;
-  height: 100%;
-  border-radius: 25px;
-  opacity: 0.8;
-  position: relative;
-  margin: auto;
-}
-*/
-
 .piltpäis-pilt {
   display: flex;
+  display: block;
   object-fit: cover;
   flex-wrap: wrap;
   margin-top: 0rem;
@@ -29,4 +9,10 @@
   height: auto;
   margin-left: auto;
   margin-right: auto;
+}
+.piltpäis {
+  background-color: white;
+  /*margin-left: auto;
+  margin-right: auto;
+  align-items: center;*/
 }

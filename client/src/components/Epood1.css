@@ -1,7 +1,8 @@
 .Epoodkonteiner {
-  max-width: 800px;
+  max-width: 68%;
   margin-left: auto;
   margin-right: auto;
+  padding: 0em;
 }
 
 .thumbnail p,
@@ -17,11 +18,11 @@
 }
 
 .thumbnail > img {
-  display: block;
+  display: flex;
   max-width: 100%;
   object-fit: cover;
-  width: 25em;
-  height: 25em;
+  width: auto;
+  height: 15em;
 }
 
 .col {
@@ -30,6 +31,7 @@
 }
 
 .thumbnail {
+  width: 100%;
   height: 100%;
   flex-wrap: wrap;
 }
@@ -38,7 +40,10 @@
   margin: auto;
 }
 
-.tooteidkokku,
 .badge {
-  text-align: right;
+  text-align: center;
+}
+
+.tooteidkokku {
+  text-align: center;
 }
