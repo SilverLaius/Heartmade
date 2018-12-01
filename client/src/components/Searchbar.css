@@ -11,3 +11,7 @@
 .badge {
   background-color: #add8e6;
 }
+.form-control {
+  width: 100%;
+  margin-left: -3em;
+}

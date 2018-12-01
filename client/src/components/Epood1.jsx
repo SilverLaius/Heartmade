@@ -99,11 +99,11 @@ export default class epood extends Component {
                 <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
                   <h3>{product.Kirjeldus}</h3>
                   <p>
-                    <Button bsStyle="sm">
+                    <Button className="tootenupp" bsStyle="sm">
                       <Translate id="mainpage.info" />
                     </Button>
                     &nbsp;
-                    <Button bsStyle="sm">
+                    <Button className="tootenupp" bsStyle="sm">
                       <Translate id="mainpage.addproduct" />
                     </Button>
                   </p>

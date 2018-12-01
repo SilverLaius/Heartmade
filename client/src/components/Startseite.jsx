@@ -7,9 +7,9 @@ import Epood1 from "./Epood1";
 export default class Startseite extends Component {
   render() {
     return (
-      <Grid>
+      <div className="epoekonteiner">
         <Epood1 auth={this.props.auth} />
-      </Grid>
+      </div>
     );
   }
 }

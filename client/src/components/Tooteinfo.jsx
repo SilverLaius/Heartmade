@@ -7,10 +7,11 @@ export default class Über extends Component {
   render() {
     return (
       <div>
-        <Tabs />
         <Grid>
           <Col xs={12} sm={8} smOffset={2} />
         </Grid>
+
+        <Tabs />
       </div>
     );
   }
