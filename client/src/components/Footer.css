@@ -58,15 +58,15 @@ hr {
   text-align: left;
 }
 
-a:visited,
-a:hover,
-a:active,
-a:focus {
+a.footerlink:visited,
+a.footerlink:hover,
+a.footerlink:active,
+a.footerlink:focus {
   text-decoration: none;
   color: #add8e6;
 }
-a,
-a:hover {
+a.footerlink,
+a.footerlink:hover {
   color: white;
   text-decoration: none;
 }

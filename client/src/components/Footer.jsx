@@ -67,6 +67,7 @@ export default class Footers extends React.Component {
                 <p className="footer-text">
                   Folge uns auf: <br />
                   <a
+                    className="footerlink"
                     href="https://www.facebook.com/KertupertuHeartmade/"
                     target="_blank"
                   >
@@ -74,6 +75,7 @@ export default class Footers extends React.Component {
                   </a>{" "}
                   <br />
                   <a
+                    className="footerlink"
                     href="https://kertupertumaailm.blogspot.com/"
                     target="_blank"
                   >
@@ -92,13 +94,18 @@ export default class Footers extends React.Component {
                   Ülenurme alevik <br />
                   Estonia <br />
                   <a
+                    className="footerlink"
                     href="mailto:kertupertu.heartmade@gmail.com?Subject=Feedback von Webseite"
                     target="_top"
                   >
                     <FaEnvelope /> &nbsp; kertupertu.heartmade@gmail.com{" "}
                   </a>
                   <br />
-                  <a href="https://m.me/KertupertuHeartmade" target="_top">
+                  <a
+                    className="footerlink"
+                    href="https://m.me/KertupertuHeartmade"
+                    target="_top"
+                  >
                     <FaFacebookMessenger /> &nbsp; m.me/KertupertuHeartmade{" "}
                   </a>
                   <br />
@@ -108,11 +115,16 @@ export default class Footers extends React.Component {
             <div>
               <p className="cright">
                 <FaCopyright /> &nbsp; 2018 Copyright: &nbsp;
-                <a href="https://www.kertupertu.de" target="_blank">
+                <a
+                  className="footerlink"
+                  href="https://www.kertupertu.de"
+                  target="_blank"
+                >
                   kertupertu heARTmade OÜ
                 </a>{" "}
                 <br />
                 <a
+                  className="footerlink"
                   href="https://www.paypal.com/de/webapps/mpp/home"
                   target="_blank"
                 >
