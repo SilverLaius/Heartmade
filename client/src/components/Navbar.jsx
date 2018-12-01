@@ -64,11 +64,6 @@ class Navbar extends Component {
                 </Link>
               </li>
               <li>
-                <Link to="/statistics">
-                  <Translate id="menu.statistics" />
-                </Link>
-              </li>
-              <li>
                 <Link to="/gratis">
                   <Translate id="menu.free" />
                 </Link>

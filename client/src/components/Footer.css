@@ -1,15 +1,11 @@
 .footer-section {
   background-color: #c68c53;
   height: 100%;
-  display: flex;
-
-  /*position: 0px absolute;*/
-  /*margin-top: 305px;*/
 }
 .footer-container {
   margin-left: auto;
   margin-right: auto;
-  max-width: 800px;
+  max-width: 60%;
 }
 
 ul {

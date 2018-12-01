@@ -77,7 +77,7 @@ export default class epood extends Component {
       product => product.Kirjeldus.indexOf(this.state.search) !== -1
     );
     return (
-      <div>
+      <div className="Epoodkonteiner">
         <div className="search-box">
           <input
             name="searchbox"

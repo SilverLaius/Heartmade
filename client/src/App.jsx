@@ -53,7 +53,7 @@ class App extends Component {
           ],
           translation: globalTranslations,
           options: {
-            defaultLanguage: "en",
+            defaultLanguage: "de",
             renderToStaticMarkup: ReactDOMServer.renderToStaticMarkup
           }
         }}
@@ -106,6 +106,10 @@ class App extends Component {
             <Route
               path="/häkelkurs"
               component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
+            />
+            <Route
+              path="/statistics"
+              //component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
             />
             <Footer />
           </div>

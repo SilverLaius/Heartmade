@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import {
   FaEnvelope,
   FaFacebookMessenger,
@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
 import "./Footer.css";
+import { Translate } from "react-localize-redux";
 
 export default class Footers extends React.Component {
   constructor(props, context) {
@@ -50,12 +51,16 @@ export default class Footers extends React.Component {
                       >
                         Zahlung
                       </Button>
-
                       <FAQ show={this.state.FAQShow} onHide={FAQClose} />
                       <Zahlung
                         show={this.state.ZahlungShow}
                         onHide={ZahlungClose}
                       />
+                    </li>
+                    <li>
+                      <Button bsStyle="link" bsSize="sm" href="/statistics">
+                        <Translate id="menu.statistics" />
+                      </Button>
                     </li>
                   </ul>
                 </div>

@@ -8,15 +8,15 @@
 }
 
 .lang-button__en {
-  height: 1.7em;
-  width: 3.5em;
+  height: 1.5em;
+  width: 2.5em;
   background-size: 100% 100%;
   background-image: url("../images/UK_flag.png");
 }
 
 .lang-button__de {
-  height: 1.7em;
-  width: 3.5em;
+  height: 1.5em;
+  width: 2.5em;
   background-size: 100% 100%;
   background-image: url("../images/German_flag.png");
 }
