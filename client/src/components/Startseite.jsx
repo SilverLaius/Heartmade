@@ -8,7 +8,7 @@ export default class Startseite extends Component {
   render() {
     return (
       <Grid>
-        <Epood1 />
+        <Epood1 auth={this.props.auth} />
       </Grid>
     );
   }

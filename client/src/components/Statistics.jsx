@@ -12,7 +12,7 @@ export default class Statistics extends Component {
     };
   }
   componentDidMount = () => {
-    fetch("/statistics")
+    fetch("/stats")
       .then(res => res.json())
       .then(res => {
         this.setState({

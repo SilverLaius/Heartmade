@@ -6,16 +6,28 @@ class NotificationBox extends Component {
     return (
       <div
         className={`notification ${
-          this.props.uploadingStatus === "uploaded" ? "" : "invisible"
+          this.props.uploadingStatus === "uploaded"
+            ? ""
+            : this.props.uploadingStatus === "error"
+            ? "error"
+            : "invisible"
         }`}
       >
-        <strong>{this.props.text}</strong>
         <button
           className="notification-button"
           onClick={this.props.buttonClick}
         >
           &times;
         </button>
+        <div>
+          {this.props.text.split("\n").map((message, key) => {
+            return (
+              <div key={key}>
+                <strong>{message}</strong>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
