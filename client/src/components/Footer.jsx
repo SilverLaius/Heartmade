@@ -1,5 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  FaEnvelope,
+  FaFacebookMessenger,
+  FaCopyright,
+  FaCcPaypal,
+  FaFacebookSquare,
+  FaGlobe
+} from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
 import "./Footer.css";
 
@@ -57,20 +65,60 @@ export default class Footers extends React.Component {
                 <h2>Letzte Nachrichten</h2>
                 <hr />
                 <p className="footer-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud
+                  Folge uns auf: <br />
+                  <a
+                    href="https://www.facebook.com/KertupertuHeartmade/"
+                    target="_blank"
+                  >
+                    <FaFacebookSquare /> Facebook
+                  </a>{" "}
+                  <br />
+                  <a
+                    href="https://kertupertumaailm.blogspot.com/"
+                    target="_blank"
+                  >
+                    <FaGlobe /> Blogspot
+                  </a>{" "}
                 </p>
               </div>
               <div className="col-sm-4">
                 <h2>Kommunikation</h2>
                 <hr />
+                <h6>Unsere Adresse:</h6>
                 <p className="footer-text">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud.
+                  kertupertu heARTmade OÜ <br />
+                  Paruni tn 79 <br />
+                  61714 Kambja vald <br />
+                  Ülenurme alevik <br />
+                  Estonia <br />
+                  <a
+                    href="mailto:kertupertu.heartmade@gmail.com?Subject=Feedback von Webseite"
+                    target="_top"
+                  >
+                    <FaEnvelope /> &nbsp; kertupertu.heartmade@gmail.com{" "}
+                  </a>
+                  <br />
+                  <a href="https://m.me/KertupertuHeartmade" target="_top">
+                    <FaFacebookMessenger /> &nbsp; m.me/KertupertuHeartmade{" "}
+                  </a>
+                  <br />
                 </p>
               </div>
+            </div>
+            <div>
+              <p className="cright">
+                <FaCopyright /> &nbsp; 2018 Copyright: &nbsp;
+                <a href="https://www.kertupertu.de" target="_blank">
+                  kertupertu heARTmade OÜ
+                </a>{" "}
+                <br />
+                <a
+                  href="https://www.paypal.com/de/webapps/mpp/home"
+                  target="_blank"
+                >
+                  <FaCcPaypal className="paypal" />
+                </a>
+              </p>
             </div>
           </div>
         </div>

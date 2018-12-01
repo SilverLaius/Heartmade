@@ -1,5 +1,5 @@
 .footer-section {
-  background-color: #d2a679;
+  background-color: #c68c53;
   height: 100%;
   display: flex;
 
@@ -26,8 +26,11 @@ ul {
 }
 
 .btn-link:active,
-.btn-link:focus {
+.btn-link:focus,
+.btn-link:hover {
   outline: none !important;
+  color: #add8e6;
+  text-decoration: none;
 }
 
 .modal-container {
@@ -55,8 +58,17 @@ hr {
   text-align: left;
 }
 
-a:link {
-  font-weight: #add8e6;
+a:visited,
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  color: #add8e6;
+}
+a,
+a:hover {
+  color: white;
+  text-decoration: none;
 }
 
 h2 {
@@ -65,8 +77,19 @@ h2 {
 
 .col-sm-4 {
   color: white;
+  min-width: 16em;
 }
 .footer-text {
   font-size: 0.8em;
   text-align: left;
+}
+
+.cright {
+  color: white;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.paypal {
+  font-size: 3em;
 }
