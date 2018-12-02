@@ -74,8 +74,16 @@ class Anmelden extends Component {
       formData.append("email", this.state.email);
       formData.append("password", this.state.password);
 
-      axios.post("/remove", {
-        productID: "Fred"
+      axios({
+        method: "post",
+        url: "/login",
+        data: formData,
+        config: { headers: { "Content-Type": "multipart/form-data" } }
+      }).then(res => {
+        if (res.data) {
+          authenticateUser();
+          this.handleClose();
+        }
       });
     });
   };
