@@ -69,18 +69,22 @@ class Anmelden extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("email", this.state.email);
-    formData.append("password", this.state.password);
-    axios({
-      method: "post",
-      url: "/login",
-      data: formData,
-      config: { headers: { "Content-Type": "multipart/form-data" } }
-    }).then(res => {
-      if (res.data) {
-        authenticateUser();
-        this.handleClose();
-      }
+
+    this.setState({}, () => {
+      formData.append("email", this.state.email);
+      formData.append("password", this.state.password);
+
+      axios({
+        method: "post",
+        url: "/login",
+        data: formData,
+        config: { headers: { "Content-Type": "multipart/form-data" } }
+      }).then(res => {
+        if (res.data) {
+          authenticateUser();
+          this.handleClose();
+        }
+      });
     });
   };
 

@@ -12,7 +12,7 @@ import {
   FormControl,
   Image
 } from "react-bootstrap";
-import piltpaisImg from "../images/pilt (1).png";
+import piltpaisImg from "../images/pilt (1).webp";
 import "./Piltpais.css";
 
 //import { Link } from "react-router-dom";
