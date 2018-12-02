@@ -97,7 +97,12 @@ export default class epood extends Component {
           <Row>
             {filteredProducts.map(product => (
               <Col md={4} sm={4} key={product.Tootekood}>
-                <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
+                <Thumbnail
+                  src={"/image/" + product.Pildid[0]}
+                  alt=""
+                  className="toode"
+                  product={product}
+                >
                   <h3>{product.Kirjeldus}</h3>
                   <p>
                     <Button

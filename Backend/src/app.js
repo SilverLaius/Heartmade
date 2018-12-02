@@ -115,6 +115,7 @@ const transporter = nodemailer.createTransport({
 app.post("/register", upload.any(), (req, res) => {
   const email = req.body.email;
   const checkQuery = `SELECT KasutajaID FROM Kasutajad WHERE E_post = '${email}'`;
+
   connection.query(checkQuery, (err, results) => {
     if (err) throw err;
     if (results[0] == null) {
@@ -128,24 +129,22 @@ app.post("/register", upload.any(), (req, res) => {
       connection.query(postQuery, (err, results) => {
         if (err) throw err;
       });
-      res.send("user created");
+      const mailOptions = {
+        from: '"Heartmade" <heartmade.dev@gmail.com>',
+        to: email,
+        subject: "Registration to Heartmade",
+        text: "You have successfully registered to kertupertu.de."
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return console.log(error);
+        }
+        console.log("Message sent: %s", info.messageId);
+      });
+      res.send(true);
     } else {
-      res.send("email exists");
+      res.send(false);
     }
-  });
-
-  const mailOptions = {
-    from: '"Heartmade" <heartmade.dev@gmail.com>',
-    to: email,
-    subject: "Registration to Heartmade",
-    text: "You have successfully registered to kertupertu.de."
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return console.log(error);
-    }
-    console.log("Message sent: %s", info.messageId);
   });
 });
 

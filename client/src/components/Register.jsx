@@ -78,7 +78,6 @@ class Register extends Component {
         formData.append("email", this.state.email);
         formData.append("password", this.state.password);
         formData.append("date", this.state.date);
-
         axios({
           method: "post",
           url: "/register",

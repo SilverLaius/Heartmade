@@ -26,12 +26,11 @@ class ProductList extends Component {
   };
 
   handleProductRemove = product => {
-    fetch("/remove/" + product.Tootekood).then(() => {
-      const index = this.state.products.indexOf(product);
-      const productsWithoutRemoved = this.state.products;
-      productsWithoutRemoved.splice(index, 1);
-      this.setState({ products: productsWithoutRemoved });
-    });
+    const index = this.state.products.indexOf(product);
+    const productsWithoutRemoved = this.state.products;
+    productsWithoutRemoved.splice(index, 1);
+    this.setState({ products: productsWithoutRemoved });
+    fetch("/remove/" + product.Tootekood);
   };
 
   render() {

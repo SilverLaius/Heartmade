@@ -35,6 +35,7 @@ class ProductUpload extends Component {
     let allImages = [];
     for (let i = 0; i < event.target.files.length; i++) {
       allImages.push(event.target.files[i]);
+      console.log(event.target.files[i]);
     }
     this.setState({ productImages: allImages });
   };
@@ -58,7 +59,6 @@ class ProductUpload extends Component {
       },
       () => {
         if (!this.formIsValid()) {
-          document.getElementById("upload-form").reset();
           let errorMessage = "";
           for (let i = 0; i < this.state.errorText.length; i++) {
             errorMessage += "\n" + this.state.errorText[i];
@@ -100,8 +100,6 @@ class ProductUpload extends Component {
         });
       }
     );
-
-    document.getElementById("upload-form").reset();
   };
 
   formIsValid = () => {
@@ -170,7 +168,7 @@ class ProductUpload extends Component {
           </label>
           <label>
             Product Image:
-            <div data-tip="Only supports .png format at the moment">
+            <div data-tip="Supports png and jpeg!">
               <input
                 name="productImage"
                 type="file"
