@@ -6,7 +6,7 @@
     "book": ["Buch", "Book"],
     "blog": ["Blog", "Blog"],
     "shop": ["Shop", "Shop"],
-    "statistics": ["Statistiken", "Statistics"],
+    "statistics": ["Webstatistik", "Statistics"],
     "free": ["Gratis", "Free Stuff"],
     "courses": ["Häkelkurs", "Courses"]
   },

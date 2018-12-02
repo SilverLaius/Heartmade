@@ -1,4 +1,4 @@
-.Searchbar {
+.searchbar {
   background: none !important;
   border: none !important;
   border-color: none !important;
@@ -7,4 +7,11 @@
   box-shadow: none !important;
   margin-bottom: 0em !important;
   margin-left: -5em !important;
+}
+.badge {
+  background-color: #add8e6;
+}
+.form-control {
+  width: 100%;
+  margin-left: -3em;
 }

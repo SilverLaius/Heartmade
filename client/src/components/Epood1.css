@@ -1,3 +1,10 @@
+.Epoodkonteiner {
+  max-width: 62%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0em;
+}
+
 .thumbnail p,
 .thumbnail h4 {
   white-space: nowrap;
@@ -11,11 +18,11 @@
 }
 
 .thumbnail > img {
-  display: block;
+  display: flex;
   max-width: 100%;
   object-fit: cover;
-  width: 25em;
-  height: 25em;
+  width: 100%;
+  height: 15em;
 }
 
 .col {
@@ -24,15 +31,29 @@
 }
 
 .thumbnail {
+  width: 100%;
   height: 100%;
   flex-wrap: wrap;
 }
 
 .search-box {
-  margin: auto;
+  margin-left: 1em;
 }
 
-.tooteidkokku,
 .badge {
-  text-align: right;
+  text-align: center;
+}
+
+.tooteidkokku {
+  text-align: center;
+}
+.btn-sm.tootenupp {
+  background-color: #add8e6;
+  color: #666666;
+  text-shadow: 0.5px 0.5px #ebf6f9;
+}
+
+.btn-sm.tootenupp:hover {
+  background-color: #add8e6;
+  color: white;
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import socket from "../SocketManager";
 import { Grid, Row, Col, Thumbnail, Button, Badge } from "react-bootstrap";
 import "./Epood1.css";
+import "./Tooteinfo";
 import { Translate } from "react-localize-redux";
 
 export default class epood extends Component {
@@ -77,7 +78,7 @@ export default class epood extends Component {
       product => product.Kirjeldus.indexOf(this.state.search) !== -1
     );
     return (
-      <div>
+      <div className="Epoodkonteiner">
         <div className="search-box">
           <input
             name="searchbox"
@@ -86,10 +87,10 @@ export default class epood extends Component {
             onChange={this.handleInputChange}
           />
         </div>
-        <div className="tooteidkokku">
-          <p>
+        <div>
+          <p className="tooteidkokku">
             <Translate id="mainpage.productscount" />{" "}
-            <Badge class="badge badge-light">{this.state.productCount}</Badge>
+            <Badge>{this.state.productCount}</Badge>
           </p>
         </div>
         <Grid fluid>
@@ -99,11 +100,15 @@ export default class epood extends Component {
                 <Thumbnail src={"/image/" + product.Pildid[0]} alt="">
                   <h3>{product.Kirjeldus}</h3>
                   <p>
-                    <Button bsStyle="primary">
+                    <Button
+                      className="tootenupp"
+                      bsStyle="sm"
+                      href="/produktinfo"
+                    >
                       <Translate id="mainpage.info" />
                     </Button>
                     &nbsp;
-                    <Button bsStyle="default">
+                    <Button className="tootenupp" bsStyle="sm">
                       <Translate id="mainpage.addproduct" />
                     </Button>
                   </p>

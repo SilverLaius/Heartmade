@@ -26,21 +26,19 @@ export default class Statistics extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="statistika">
         <p>
-          Kõige populaarsem veebilehitseja, millega meie lehte vaadatakse on{" "}
-          <span>{this.state.popularBrowser}</span>
+          Beliebteste Webbrowser: <span>{this.state.popularBrowser}</span>
         </p>
         <p>
-          Kõige populaarsem ip, mis meie lehte külastab on{" "}
-          <span>{this.state.popularVisitor}</span>
+          Meist genutzte IP-Adresse: <span>{this.state.popularVisitor}</span>
         </p>
         <p>
-          Kõige populaarsem tund, mis ajal meie lehte külastatakse on{" "}
+          Beliebteste Stunde für Web Besuch:{" "}
           <span>{this.state.popularTime}</span>
         </p>
         <p>
-          Kõige populaarsem leht mida külastatakse on{" "}
+          Beliebteste Seite auf dieser Webseite{" "}
           <span>{this.state.popularPage}</span>
         </p>
       </div>

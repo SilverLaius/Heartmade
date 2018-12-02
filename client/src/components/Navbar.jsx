@@ -34,7 +34,7 @@ class Navbar extends Component {
       return (
         <nav className="toolbar__navigation">
           <div className="toolbar-logo">
-            <Link to="/">kertupertu.de</Link>
+            <Link to="/" />
           </div>
           <div className="toolbar__navigation-items">
             <ul>
@@ -64,11 +64,6 @@ class Navbar extends Component {
                 </Link>
               </li>
               <li>
-                <Link to="/statistics">
-                  <Translate id="menu.statistics" />
-                </Link>
-              </li>
-              <li>
                 <Link to="/gratis">
                   <Translate id="menu.free" />
                 </Link>
@@ -87,7 +82,7 @@ class Navbar extends Component {
         <div>
           <div className="toolbar__toggle">
             <div className="toolbar-logo__toggle">
-              <Link to="/">kertupertu.de</Link>
+              <Link to="/" />
             </div>
             <button
               className="toggle-button"
@@ -132,11 +127,7 @@ class Navbar extends Component {
                     <Translate id="menu.shop" />
                   </Link>
                 </li>
-                <li>
-                  <Link to="/statistics">
-                    <Translate id="menu.statistics" />
-                  </Link>
-                </li>
+
                 <li>
                   <Link to="/gratis">
                     <Translate id="menu.free" />

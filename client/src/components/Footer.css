@@ -1,0 +1,92 @@
+.footer-section {
+  /*background-color: #c68c53;*/
+  background-color: #666666;
+  height: 100%;
+}
+.footer-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60%;
+}
+
+ul {
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.btn-link {
+  color: white;
+  font-size: 0.8em;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-link:active,
+.btn-link:focus,
+.btn-link:hover {
+  outline: none !important;
+  color: #add8e6;
+  text-decoration: none;
+}
+
+.modal-container {
+  position: relative;
+  height: 200;
+}
+.modal-container .modal,
+.modal-container .modal-backdrop {
+  position: absolute;
+}
+
+.modalbody {
+  font-size: 11px;
+  text-align: justify;
+}
+.modalh6 {
+  text-decoration: underline;
+}
+
+hr {
+  width: 150px;
+  border-color: #add8e6;
+  margin: 0px;
+  border-width: 1.5px;
+  text-align: left;
+}
+
+a.footerlink:visited,
+a.footerlink:hover,
+a.footerlink:active,
+a.footerlink:focus {
+  text-decoration: none;
+  color: #add8e6;
+}
+a.footerlink,
+a.footerlink:hover {
+  color: white;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+.col-sm-4 {
+  color: white;
+  min-width: 16em;
+}
+.footer-text {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+.cright {
+  color: white;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.paypal {
+  font-size: 3em;
+}

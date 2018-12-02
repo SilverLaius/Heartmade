@@ -2,7 +2,6 @@
   display: flex;
 }
 .toolbar__toggle {
-  background-color: #add8e6;
   height: 5rem;
   display: flex;
   align-items: center;
@@ -42,6 +41,7 @@
   width: 100%;
   height: 100%;
   align-items: center;
+  box-shadow: 0 2px #ebf6f9;
 }
 
 .toolbar-logo__toggle {
@@ -79,14 +79,15 @@
 }
 
 .toolbar__navigation-items a {
-  color: gray;
+  color: #666666;
   text-decoration: none;
   font-family: "Abel", sans-serif;
+  text-shadow: 0.5px 0.5px #ebf6f9;
 }
 
 .toolbar__navigation-items a:hover,
 .toolbar__navigation-items a:active {
-  color: black;
+  color: white;
 }
 
 .toolbar__dropdown-items {
@@ -110,5 +111,5 @@
 
 .toolbar__dropdown-items a:hover,
 .toolbar__dropdown-items a:active {
-  color: black;
+  color: white;
 }

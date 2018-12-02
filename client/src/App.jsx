@@ -4,6 +4,7 @@ import Über from "./components/Über";
 import Buch from "./components/Buch";
 import Navbar from "./components/Navbar";
 import Searchbar from "./components/Searchbar";
+import Footer from "./components/Footer";
 import Startseite from "./components/Startseite";
 import Piltpais from "./components/Piltpais";
 import Blog from "./components/Blog";
@@ -13,11 +14,13 @@ import Häkelkurs from "./components/Häkelkurs";
 import Anmelden from "./components/Anmelden";
 import Register from "./components/Register";
 import Statistics from "./components/Statistics";
+import Produktinfo from "./components/Tooteinfo";
 import { routeApplicationPart } from "./RouteWrapper";
 import { onAuthenticateUser } from "./event-bus";
 import { LocalizeProvider } from "react-localize-redux";
 import globalTranslations from "./language/translations.json";
 import ReactDOMServer from "react-dom/server";
+import Productinfo from "./components/Tooteinfo";
 
 class App extends Component {
   state = {
@@ -52,7 +55,7 @@ class App extends Component {
           ],
           translation: globalTranslations,
           options: {
-            defaultLanguage: "en",
+            defaultLanguage: "de",
             renderToStaticMarkup: ReactDOMServer.renderToStaticMarkup
           }
         }}
@@ -106,6 +109,15 @@ class App extends Component {
               path="/häkelkurs"
               component={routeApplicationPart(Häkelkurs, "Häkelkurs")}
             />
+            <Route
+              path="/statistics"
+              component={routeApplicationPart(Statistics, "Statistics")}
+            />
+            <Route
+              path="/produktinfo"
+              component={routeApplicationPart(Productinfo, "Productinfo")}
+            />
+            <Footer />
           </div>
         </Router>
       </LocalizeProvider>
